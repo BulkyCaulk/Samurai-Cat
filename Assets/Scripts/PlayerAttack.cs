@@ -13,6 +13,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _attackWaitTime;
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private float _attackRadius;
+
+    [SerializeField] private float _bounceHeight = 2.5f;
     private IEnumerator _attackCoroutine;
     private LayerMask _attackableBounceLayer;
 
@@ -72,8 +74,16 @@ public class PlayerAttack : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent<BounceAttackable>(out BounceAttackable bounceableObject))
         {
-            Debug.Log(_attackCoroutine);
-            _playerRigidbody.AddForce(Vector2.up * _upwardForcePower, ForceMode2D.Impulse);
+
+            float gravity = Physics2D.gravity.y * _playerRigidbody.gravityScale;
+            float bounceVelocity = Mathf.Sqrt(2f * -gravity * _bounceHeight);
+
+            Vector2 verticle = _playerRigidbody.velocity;
+            verticle.y = 0f;
+
+            verticle.y = bounceVelocity;
+            _playerRigidbody.velocity = verticle;
+
         }
         if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyGameObject))
         {
