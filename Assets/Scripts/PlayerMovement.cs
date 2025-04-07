@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -9,9 +10,10 @@ public class PlayerMovement : MonoBehaviour
     public float jump = 5f;
     private Rigidbody2D rb;
     private float moveInput;
-    private bool grounded = false;
+    private bool grounded;
     public Transform groundCheck;
     public float checkRadius = 0.2f;
+    private bool _facingRight = true;
     public LayerMask groundLayer;
     void Start()
     {
@@ -23,7 +25,15 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+        if (moveInput > 0 && !_facingRight)
+        {
+            Flip();
+        }
+        else if (moveInput < 0 && _facingRight)
+        {
+            Flip();
+        }
+            grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             rb.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
@@ -36,22 +46,13 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Flip()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            grounded = true;
-        }
+        _facingRight = !_facingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            grounded = false;
-        }
-    }
-
     void OnDrawGizmosSelected()
     {
         if (groundCheck == null) return;
