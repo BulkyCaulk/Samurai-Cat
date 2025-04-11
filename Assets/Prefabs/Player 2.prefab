@@ -221,7 +221,7 @@ MonoBehaviour:
   _upwardForcePower: 6
   _attackWaitTime: 1
   _playerMovement: {fileID: 2137592209425292711}
-  _attackRadius: 0.5
+  _attackRadius: 0.6
   _bounceHeight: 2.5
 --- !u!114 &2836652084439069603
 MonoBehaviour:
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectsToDraw:
   - {fileID: 6861865654999998362}
+  - {fileID: 6094975563886194812}
   - {fileID: 6094975563886194812}
   _radius: 0.5
 --- !u!61 &992368375402230074
@@ -271,7 +272,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 5.4026675}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -282,7 +283,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 14.462301, y: 37.754066}
+  m_Size: {x: 14.462301, y: 26.94873}
   m_EdgeRadius: 0
 --- !u!58 &6895063493955904415
 CircleCollider2D:
@@ -316,9 +317,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.11065602, y: -12.283215}
+  m_Offset: {x: 0.14485791, y: -12.351601}
   serializedVersion: 2
-  m_Radius: 6.891385
+  m_Radius: 6.9939747
 --- !u!1 &6861865654999998362
 GameObject:
   m_ObjectHideFlags: 0
