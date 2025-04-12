@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _attackWaitTime;
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private float _attackRadius;
+    [SerializeField] private Animator _playerDownAttack;
 
     [SerializeField] private float _bounceHeight = 2.5f;
     private IEnumerator _attackCoroutine;
@@ -55,10 +56,12 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator DownwardAttack()
     {
         _downwardAttackArea.SetActive(true);
+        _playerDownAttack.SetBool("isDownAttacking", true);
         Collider2D objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
         if(objectHit != null)
             CheckDownHit(objectHit);
         yield return new WaitForSeconds(_attackWaitTime);
+        _playerDownAttack.SetBool("isDownAttacking", false);
         _downwardAttackArea.SetActive(false);
     }
 
@@ -74,7 +77,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent<BounceAttackable>(out BounceAttackable bounceableObject))
         {
-
             float gravity = Physics2D.gravity.y * _playerRigidbody.gravityScale;
             float bounceVelocity = Mathf.Sqrt(2f * -gravity * _bounceHeight);
 
@@ -89,5 +91,13 @@ public class PlayerAttack : MonoBehaviour
         {
             enemyGameObject.TakeDamage(_attackDamage);
         }
+    }
+    
+    private float DownwardAttackTime()
+    {
+        AnimatorStateInfo stateInfo = _playerDownAttack.GetCurrentAnimatorStateInfo(0);
+        float animationTime = stateInfo.normalizedTime % 1;
+
+        return animationTime;
     }
 }
