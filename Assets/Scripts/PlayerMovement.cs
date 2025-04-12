@@ -14,10 +14,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float checkRadius = 0.2f;
     private bool _facingRight = true;
+    public float maxFallSpeed = 20f;
     public LayerMask groundLayer;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
     }
 
     // Update is called once per frame
