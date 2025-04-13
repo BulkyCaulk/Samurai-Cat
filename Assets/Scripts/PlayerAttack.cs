@@ -18,8 +18,6 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _bounceHeight = 2.5f;
     private IEnumerator _attackCoroutine;
     private LayerMask _attackableBounceLayer;
-
-
     void Start()
     {
         _attackableBounceLayer = LayerMask.GetMask("BounceAttackable");
@@ -40,6 +38,7 @@ public class PlayerAttack : MonoBehaviour
             _attackCoroutine = BasicAttack();
             StartCoroutine(_attackCoroutine);
         }
+
         
     }
 
@@ -56,12 +55,11 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator DownwardAttack()
     {
         _downwardAttackArea.SetActive(true);
-        _playerDownAttack.SetBool("isDownAttacking", true);
+        _playerDownAttack.SetTrigger("downAttack");
         Collider2D objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
         if(objectHit != null)
             CheckDownHit(objectHit);
         yield return new WaitForSeconds(_attackWaitTime);
-        _playerDownAttack.SetBool("isDownAttacking", false);
         _downwardAttackArea.SetActive(false);
     }
 
