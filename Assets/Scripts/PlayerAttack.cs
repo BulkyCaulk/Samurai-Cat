@@ -11,13 +11,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Rigidbody2D _playerRigidbody;
     [SerializeField] private float _upwardForcePower;
     [SerializeField] private float _attackWaitTime;
-    [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private float _attackRadius;
-    [SerializeField] private Animator _playerDownAttack;
 
     [SerializeField] private float _bounceHeight = 2.5f;
     private IEnumerator _attackCoroutine;
     private LayerMask _attackableBounceLayer;
+    // Event for when animation for downward attack should start
+    public delegate void OnDownwardAttack();
+    public event OnDownwardAttack onDownwardAttack;
+
     void Start()
     {
         _attackableBounceLayer = LayerMask.GetMask("BounceAttackable");
@@ -55,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator DownwardAttack()
     {
         _downwardAttackArea.SetActive(true);
-        _playerDownAttack.SetTrigger("downAttack");
+        onDownwardAttack?.Invoke();
         Collider2D objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
         if(objectHit != null)
             CheckDownHit(objectHit);
@@ -89,13 +91,5 @@ public class PlayerAttack : MonoBehaviour
         {
             enemyGameObject.TakeDamage(_attackDamage);
         }
-    }
-    
-    private float DownwardAttackTime()
-    {
-        AnimatorStateInfo stateInfo = _playerDownAttack.GetCurrentAnimatorStateInfo(0);
-        float animationTime = stateInfo.normalizedTime % 1;
-
-        return animationTime;
     }
 }
