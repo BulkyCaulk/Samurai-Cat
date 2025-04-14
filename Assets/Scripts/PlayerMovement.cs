@@ -15,12 +15,13 @@ public class PlayerMovement : MonoBehaviour
     public float checkRadius = 0.2f;
     private bool _facingRight = true;
     public float maxFallSpeed = 20f;
-    public LayerMask groundLayer;
-    // For checking if player has the dash ability at all
-    public bool hasDash = false;
-    // For checking if the player can dash when having the dash ability
+    public LayerMask groundLayer; // For checking if player has the dash ability at all
+    public bool hasDash = false; // For checking if the player can dash when having the dash ability
     private bool canDash = true;
-    public bool isDashing;
+    private bool isDashing;
+    public bool hasDoubleJump = false;
+    private bool canDoubleJump = true;
+    private bool wasGrounded = true;
     [SerializeField] private float dashingPower = 20f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = .5f;
@@ -29,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
+
+        var playerAttack = GetComponent<PlayerAttack>();
+        if (playerAttack != null)
+        {
+            playerAttack.onDownwardAttack += ResetDoubleJump;
+        }
     }
 
     // Update is called once per frame
@@ -48,10 +55,31 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
-            grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        
+        // Store previous grounded state
+        bool previouslyGrounded = grounded;
+        grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+        
+        if (previouslyGrounded && !grounded && hasDoubleJump)
         {
-            rb.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+            canDoubleJump = true;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (grounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jump);
+                canDoubleJump = true;
+            }
+            else if (hasDoubleJump)
+            {
+                if (canDoubleJump)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, jump);
+                    canDoubleJump = false;
+                }
+            }        
         }
         if (hasDash)
         {
@@ -104,5 +132,11 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
 
+    }
+
+    private void ResetDoubleJump()
+    {
+        // Enable extra jump for the player
+        canDoubleJump = true;
     }
 }

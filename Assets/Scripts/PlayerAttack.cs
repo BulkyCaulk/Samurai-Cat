@@ -85,6 +85,7 @@ public class PlayerAttack : MonoBehaviour
 
             verticle.y = bounceVelocity;
             _playerRigidbody.velocity = verticle;
+            
 
         }
         if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyGameObject))
