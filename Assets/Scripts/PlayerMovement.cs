@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     public float checkRadius = 0.2f;
     private bool _facingRight = true;
-    public float maxFallSpeed = 20f;
+    public float maxFallSpeed = 0.1f;
     public LayerMask groundLayer; // For checking if player has the dash ability at all
     public bool hasDash = false; // For checking if the player can dash when having the dash ability
     private bool canDash = true;
@@ -104,6 +104,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         rb.velocity = new Vector2(moveInput * currentSpeed, rb.velocity.y);
+
+        if (rb.velocity.y < -maxFallSpeed)
+        {
+            rb.velocity = new Vector2(moveInput * currentSpeed, -maxFallSpeed);
+        }
 
     }
 

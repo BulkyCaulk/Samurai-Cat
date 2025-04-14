@@ -378,7 +378,7 @@ MonoBehaviour:
   rb: {fileID: 4404443888043599914}
   groundCheck: {fileID: 5576363810633216418}
   checkRadius: 0.2
-  maxFallSpeed: 20
+  maxFallSpeed: 15
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
