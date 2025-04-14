@@ -6,7 +6,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float speed = 2f;
+    public float speed = 5f;
+    public float sprintSpeed = 8f;
+    private float currentSpeed;
     public float jump = 5f;
     [SerializeField] private Rigidbody2D rb;
     private float moveInput;
@@ -21,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing;
     public bool hasDoubleJump = false;
     private bool canDoubleJump = true;
-    private bool wasGrounded = true;
     [SerializeField] private float dashingPower = 20f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = .5f;
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
 
+        currentSpeed = speed;
         var playerAttack = GetComponent<PlayerAttack>();
         if (playerAttack != null)
         {
@@ -41,10 +43,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDashing)
-        {
-            return;
-        }
         moveInput = Input.GetAxisRaw("Horizontal");
 
         if (moveInput > 0 && !_facingRight)
@@ -56,6 +54,15 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
         
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            currentSpeed = sprintSpeed;
+        }
+        else
+        {
+            currentSpeed = speed;
+        }
+
         // Store previous grounded state
         bool previouslyGrounded = grounded;
         grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
@@ -96,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput * currentSpeed, rb.velocity.y);
 
     }
 
@@ -117,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        // Handles the dashing of the player
         canDash = false;
         isDashing = true;
         float originalGravity = rb.gravityScale;
