@@ -8,7 +8,7 @@ public class AnimatorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Locator.Instance.PlayerAttackScript.onDownwardAttack += DownWardAttackHandler;
+        Locator.Instance.PlayerAttackScript.onDownwardAttackAnimation += DownWardAttackHandler;
     }
 
     private void DownWardAttackHandler()

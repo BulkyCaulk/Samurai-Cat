@@ -20,12 +20,12 @@ public class BossRoomCamera : MonoBehaviour
     {
         if(_cameraNewPositionY < _cameraOriginalPositionY)
         {
-            Debug.Log($"{_cameraNewPositionY} when its less than to original camera position");
+            //Debug.Log($"{_cameraNewPositionY} when its less than to original camera position");
             _cameraNewPositionY = _cameraOriginalPositionY;
         }
         if(_playerPosition.position.y >= _cameraOriginalPositionY)
         {
-            Debug.Log($"{_cameraNewPositionY} when its more than or equal to original camera position");
+            //Debug.Log($"{_cameraNewPositionY} when its more than or equal to original camera position");
             _cameraNewPositionY = _playerPosition.position.y;
         }
         _cameraTransform.position = new Vector3(_cameraTransform.position.x, _cameraNewPositionY, _cameraTransform.position.z);

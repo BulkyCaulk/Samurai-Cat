@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -36,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         var playerAttack = GetComponent<PlayerAttack>();
         if (playerAttack != null)
         {
-            playerAttack.onDownwardAttack += ResetDoubleJump;
+            playerAttack.onDownwardAttackAnimation += ResetDoubleJump;
         }
     }
 

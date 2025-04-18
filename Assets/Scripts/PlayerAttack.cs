@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     private LayerMask _attackableBounceLayer;
     // Event for when animation for downward attack should start
     public delegate void OnDownwardAttack();
-    public event OnDownwardAttack onDownwardAttack;
+    public event OnDownwardAttack onDownwardAttackAnimation;
 
     void Start()
     {
@@ -57,8 +57,9 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator DownwardAttack()
     {
         _downwardAttackArea.SetActive(true);
-        onDownwardAttack?.Invoke();
+        onDownwardAttackAnimation?.Invoke();
         Collider2D objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
+        Debug.Log(objectHit);
         if(objectHit != null)
             CheckDownHit(objectHit);
         yield return new WaitForSeconds(_attackWaitTime);
@@ -75,6 +76,7 @@ public class PlayerAttack : MonoBehaviour
     }
     private void CheckDownHit(Collider2D collision)
     {
+        //Debug.Log($"Hit {collision.name}");
         if(collision.gameObject.TryGetComponent<BounceAttackable>(out BounceAttackable bounceableObject))
         {
             float gravity = Physics2D.gravity.y * _playerRigidbody.gravityScale;
