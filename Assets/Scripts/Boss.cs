@@ -10,12 +10,16 @@ public class Boss : MonoBehaviour
     [SerializeField] private Enemy _bossHealth;
     [SerializeField] private GameObject _fireBallSpawner;
     [SerializeField] private float _platformTimeSpan;
+    [SerializeField] private SpawnProjectile _spawnProjectile;
+    [SerializeField] private float _fireRate;
     private float _timer;
     private IEnumerator _platformCoroutine;
     private IEnumerator _shootAttackCoroutine;
     private int _randomSpawnLocation;
     private List<GameObject> _platformsSpawned;
     private List<GameObject> _platformsToRemove;
+    private Vector3 _playersLastPosition;
+    
     
     // Start is called before the first frame update
     void Awake()
@@ -29,6 +33,7 @@ public class Boss : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
+        _fireRate -= Time.deltaTime;
 
         if(_timer >= _timerTillNextPlatform) {
             _timer = 0;
@@ -38,14 +43,15 @@ public class Boss : MonoBehaviour
 
         Debug.Log(_bossHealth.Enemy_Health);
 
-        /*
+        
         // needs to be implemented still
-        if(_bossHealth.Enemy_Health <= 2)
+        if(_bossHealth.Enemy_Health <= 2 && _fireRate <= 0)
         {
+            _fireRate = 1.2f;
             _shootAttackCoroutine = ShootAttack();
             StartCoroutine(_shootAttackCoroutine);
         }
-        */
+        
 
         if(_platformsSpawned != null)
         {
@@ -90,6 +96,30 @@ public class Boss : MonoBehaviour
 
     private IEnumerator ShootAttack()
     {
-        yield return new WaitForSeconds(0);
+        SpitFireBall();
+        yield return new WaitForSeconds(2);
+    }
+
+
+
+    private void SpitFireBall()
+    {
+       GameObject _projectile =  _spawnProjectile.SpawnProjectileObject();
+       GameObject player = GameObject.Find("Player");
+       
+
+       // set the direction and player position for the projectile
+       if(_projectile.TryGetComponent<SpawnProjectile>(out SpawnProjectile projectileScript))
+       {
+            _playersLastPosition = Vector3.Normalize(player.transform.position - projectileScript.ProjectileSpawnPosition.transform.position);
+            projectileScript.ProjectileDirection = _playersLastPosition;
+            projectileScript.ProjectileGameObject = _projectile;
+       }
+       // increase the projectile speed 
+       if(_bossHealth.Enemy_Health == 1)
+        {
+            projectileScript.ProjectileSpeed = 10;
+            _fireRate = .4f;
+        }
     }
 }
