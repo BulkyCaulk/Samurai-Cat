@@ -12,8 +12,10 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _upwardForcePower;
     [SerializeField] private float _attackWaitTime;
     [SerializeField] private float _attackRadius;
+    [SerializeField] private PlayerData _playerData;
 
     [SerializeField] private float _bounceHeight = 2.5f;
+    [SerializeField] private AudioSource _playSFX;
     private IEnumerator _attackCoroutine;
     private LayerMask _attackableBounceLayer;
     // Event for when animation for downward attack should start
@@ -87,8 +89,8 @@ public class PlayerAttack : MonoBehaviour
 
             verticle.y = bounceVelocity;
             _playerRigidbody.velocity = verticle;
-            
-
+            _playSFX.clip = _playerData._downWardAttack;
+            _playSFX.Play();
         }
         if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyGameObject))
         {

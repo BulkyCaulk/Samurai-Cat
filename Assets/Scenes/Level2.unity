@@ -10104,7 +10104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAttackScript: {fileID: 1035960689}
-  _animatorControllerScript: {fileID: 1035960690}
+  _playerAnimatorController: {fileID: 1035960690}
 --- !u!4 &1666630699
 Transform:
   m_ObjectHideFlags: 0

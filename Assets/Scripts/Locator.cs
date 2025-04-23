@@ -6,7 +6,8 @@ public class Locator : MonoBehaviour
 {
     public static Locator Instance {get ; private set ; }
     [SerializeField] private PlayerAttack _playerAttackScript;
-    [SerializeField] private AnimatorController _animatorControllerScript;
+    [SerializeField] private AnimatorController _playerAnimatorController;
+
     public PlayerAttack PlayerAttackScript {get ; private set ; }
     public AnimatorController AnimatorControllerScript {get ; private set ; }
     // public UI UIScript { get ; private set ; }
@@ -21,7 +22,7 @@ public class Locator : MonoBehaviour
         Instance = this; 
 
         PlayerAttackScript = _playerAttackScript;
-        AnimatorControllerScript = _animatorControllerScript;
+        AnimatorControllerScript = _playerAnimatorController;
     }
 
     private void Start()
