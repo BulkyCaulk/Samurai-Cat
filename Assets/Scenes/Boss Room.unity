@@ -646,37 +646,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1911927667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &754921127
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 754921128}
-  m_Layer: 0
-  m_Name: FireballSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &754921128
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754921127}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.101, y: -0.033, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1911927667}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054190501
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,6 +779,16 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5612032941909188166, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
   m_PrefabInstance: {fileID: 1308894805}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1374008654 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5017198050484300145, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+  m_PrefabInstance: {fileID: 1382145383170222575}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1374008655 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+  m_PrefabInstance: {fileID: 1382145383170222575}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1384544109
 GameObject:
@@ -947,7 +926,7 @@ Transform:
   m_Children:
   - {fileID: 226532916}
   - {fileID: 742633993}
-  - {fileID: 754921128}
+  - {fileID: 1374008655}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1911927668
@@ -1076,8 +1055,10 @@ MonoBehaviour:
   _bossPlatformPattern: {fileID: 2090994017336025798, guid: b957ce82a5ec2f14eb3ab75572ff30af, type: 3}
   _timerTillNextPlatform: 5
   _bossHealth: {fileID: 1911927670}
-  _fireBallSpawner: {fileID: 754921127}
+  _fireBallSpawner: {fileID: 1374008654}
   _platformTimeSpan: 15
+  _spawnProjectile: {fileID: 2961243878210977721, guid: 04b87c081c87a7d4f95ac97063bb28cb, type: 3}
+  _fireRate: 1.2
 --- !u!114 &1911927673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10206,6 +10187,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1382145383170222575
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1911927667}
+    m_Modifications:
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.104
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017198050484300145, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+      propertyPath: m_Name
+      value: FireballSpawnPosition
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
