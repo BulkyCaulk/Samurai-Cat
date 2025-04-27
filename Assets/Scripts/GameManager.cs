@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -14,7 +15,12 @@ public class GameManager : MonoBehaviour
 
     // keep only one lit checkpoint at a time
     private HashSet<string> _litCheckpoints = new HashSet<string>();
-
+    public bool UnlockedDash { get; private set; } = false;
+    public bool UnlockedDoubleJump { get; private set; } = false;
+    public void UnlockDash()
+        => UnlockedDash = true;
+    public void UnlockDoubleJump()
+        => UnlockedDoubleJump = true;
     void Awake()
     {
         if (Instance == null)

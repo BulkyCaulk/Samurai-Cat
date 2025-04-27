@@ -17,10 +17,10 @@ public class PlayerMovement : MonoBehaviour
     private bool _facingRight = true;
     public float maxFallSpeed = 0.1f;
     public LayerMask groundLayer; // For checking if player has the dash ability at all
-    public bool hasDash = false; // For checking if the player can dash when having the dash ability
+    public bool hasDash; // For checking if the player can dash when having the dash ability
     private bool canDash = true;
     private bool isDashing;
-    public bool hasDoubleJump = false;
+    public bool hasDoubleJump;
     private bool canDoubleJump = true;
     [SerializeField] private float dashingPower = 20f;
     [SerializeField] private float dashingTime = 0.2f;
@@ -28,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrailRenderer tr;
     void Start()
     {
+        hasDash = GameManager.Instance.UnlockedDash;
+        hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
+        GameManager.Instance.UnlockDash();
+        GameManager.Instance.UnlockDoubleJump();
+        RefreshAbilities();
         rb = GetComponent<Rigidbody2D>();
         rb.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
 
@@ -150,5 +155,12 @@ public class PlayerMovement : MonoBehaviour
     {
         // Enable extra jump for the player
         canDoubleJump = true;
+    }
+
+    // For when the player gains a new ability, call this method to refresh the variable
+    public void RefreshAbilities()
+    {
+        hasDash       = GameManager.Instance.UnlockedDash;
+        hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
     }
 }
