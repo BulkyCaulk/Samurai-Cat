@@ -1,23 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
+    [Tooltip("Delay before respawning at checkpoint")]
     public float waitTime = 0.04f;
-    private void OnTriggerEnter2D(Collider2D collider)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collider.CompareTag("Player"))
-        {
-            StartCoroutine(Wait(collider));
-        }
+        if (other.CompareTag("Player"))
+            StartCoroutine(HandleDeath(other));
     }
 
-    IEnumerator Wait(Collider2D collider)
+    private IEnumerator HandleDeath(Collider2D playerCollider)
     {
+        // Hide the player
+        playerCollider.gameObject.SetActive(false);
         yield return new WaitForSeconds(waitTime);
-        Destroy(collider.gameObject);
+        GameManager.Instance.ReloadToCheckpoint();
     }
 }
