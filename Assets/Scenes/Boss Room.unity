@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 226532915}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.628, y: 0.468, z: 0}
+  m_LocalPosition: {x: -2, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15794,7 +15794,7 @@ Transform:
   m_GameObject: {fileID: 742633992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4, y: 0.95, z: 0}
+  m_LocalPosition: {x: 1.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15830,7 +15830,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAttackScript: {fileID: 1308894807}
-  _playerAnimatorController: {fileID: 0}
+  _playerAnimatorController: {fileID: 1308894818}
+  _playerHealthScript: {fileID: 1308894815}
 --- !u!4 &1054190503
 Transform:
   m_ObjectHideFlags: 0
@@ -15967,6 +15968,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5612032941909188166, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
   m_PrefabInstance: {fileID: 1308894805}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1308894815 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2079707930456703491, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+  m_PrefabInstance: {fileID: 1308894805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4d3194f07fa2941b108de4619fa5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1308894818 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7174844555871556426, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+  m_PrefabInstance: {fileID: 1308894805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438aaae057626ab4ab121a395ecdf63a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1374008654 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5017198050484300145, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
