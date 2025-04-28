@@ -46,6 +46,7 @@ public class SpawnProjectile : MonoBehaviour
         Debug.Log($"Hit {collision.name}");
         if(collision.name == "Player")
         {
+            Locator.Instance.Player.PlayerTakeDamage();
             Destroy(gameObject);        
         }
         

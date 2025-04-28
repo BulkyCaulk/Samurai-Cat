@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int _playerHealth;
+    public int Player_Health {get { return _playerHealth; } }
     void Update()
     {
         //quit game 
@@ -12,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
         {
             Application.Quit();
         }
+        Debug.Log(_playerHealth);
     }
 
     public void PlayerTakeDamage()
@@ -19,7 +21,8 @@ public class PlayerHealth : MonoBehaviour
         _playerHealth--;
         if(_playerHealth <= 0)
         {
-            KillPlayer();
+            // this may break...
+            GameManager.Instance.ReloadToCheckpoint();
         }
     }
     private void KillPlayer()
