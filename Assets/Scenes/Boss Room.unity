@@ -15610,7 +15610,7 @@ Transform:
   m_GameObject: {fileID: 226532915}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.35, y: 0.95, z: 0}
+  m_LocalPosition: {x: -0.628, y: 0.468, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15825,7 +15825,7 @@ Transform:
   m_GameObject: {fileID: 742633992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4, y: 0.95, z: 0}
+  m_LocalPosition: {x: 0.383, y: 0.456, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15861,7 +15861,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAttackScript: {fileID: 1308894807}
-  _playerAnimatorController: {fileID: 0}
   _playerAnimatorController: {fileID: 1308894806}
   _playerHealthScript: {fileID: 1737422608}
 --- !u!4 &1054190503
@@ -16140,6 +16139,7 @@ GameObject:
   - component: {fileID: 1911927667}
   - component: {fileID: 1911927666}
   - component: {fileID: 1911927671}
+  - component: {fileID: 1911927670}
   - component: {fileID: 1911927669}
   - component: {fileID: 1911927668}
   - component: {fileID: 1911927672}
@@ -16192,7 +16192,7 @@ SpriteRenderer:
   m_SortingLayerID: 1685773365
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d0b096170a10aab4b8ade2e7d1a18bbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e8da76063650d840aa0341ba3243267, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -16212,8 +16212,8 @@ Transform:
   m_GameObject: {fileID: 1911927665}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 3.25, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 5, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 226532916}
@@ -16269,6 +16269,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1911927670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911927665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b336c6b859045c4297db7337e14c86d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 3
+  _enemyRigidbody: {fileID: 1911927669}
+  _enemyAnimator: {fileID: 1911927668}
 --- !u!61 &1911927671
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16301,18 +16316,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.119939536, y: 0.43409535}
+  m_Offset: {x: -0.03606476, y: 0.21704572}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1.2, y: 1.2}
     newSize: {x: 20, y: 20}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7150092, y: 0.542756}
+  m_Size: {x: 0.40300038, y: 0.108656764}
   m_EdgeRadius: 0
 --- !u!114 &1911927672
 MonoBehaviour:
@@ -16331,12 +16346,11 @@ MonoBehaviour:
   - {fileID: 742633992}
   _bossPlatformPattern: {fileID: 2090994017336025798, guid: b957ce82a5ec2f14eb3ab75572ff30af, type: 3}
   _timerTillNextPlatform: 5
-  _bossHealth: 3
+  _bossHealth: {fileID: 1911927670}
   _fireBallSpawner: {fileID: 1374008654}
   _platformTimeSpan: 15
   _spawnProjectile: {fileID: 2961243878210977721, guid: 04b87c081c87a7d4f95ac97063bb28cb, type: 3}
   _fireRate: 1.2
-  _bossCollider: {fileID: 1911927671}
 --- !u!114 &1911927673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25603,11 +25617,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.092
+      value: -0.104
       objectReference: {fileID: 0}
     - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.276
+      value: 0.027
       objectReference: {fileID: 0}
     - target: {fileID: 1136736898884944361, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
       propertyPath: m_LocalPosition.z
