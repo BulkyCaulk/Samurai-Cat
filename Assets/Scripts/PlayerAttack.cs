@@ -75,7 +75,6 @@ public class PlayerAttack : MonoBehaviour
         {
             enemyGameObject.TakeDamage(_attackDamage);
         }
-        
     }
     private void CheckDownHit(Collider2D collision)
     {
@@ -96,10 +95,6 @@ public class PlayerAttack : MonoBehaviour
         if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyGameObject))
         {
             enemyGameObject.TakeDamage(_attackDamage);
-        }
-        if(collision.gameObject.TryGetComponent<Boss>(out Boss bossGameObject))
-        {
-            bossGameObject.TakeDamage();
         }
     }
 }

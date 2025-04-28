@@ -7,11 +7,9 @@ public class Locator : MonoBehaviour
     public static Locator Instance {get ; private set ; }
     [SerializeField] private PlayerAttack _playerAttackScript;
     [SerializeField] private AnimatorController _playerAnimatorController;
-    [SerializeField] private PlayerHealth _playerHealthScript;
 
     public PlayerAttack PlayerAttackScript {get ; private set ; }
     public AnimatorController AnimatorControllerScript {get ; private set ; }
-    public PlayerHealth Player {get ; private set ; }
     // public UI UIScript { get ; private set ; }
 
     private void Awake()
@@ -25,7 +23,6 @@ public class Locator : MonoBehaviour
 
         PlayerAttackScript = _playerAttackScript;
         AnimatorControllerScript = _playerAnimatorController;
-        Player = _playerHealthScript;
     }
 
     private void Start()
