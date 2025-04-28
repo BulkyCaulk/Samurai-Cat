@@ -19,7 +19,6 @@ public class ElevatorPlatform : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Decide target Y based on whether the player is standing on it
         float targetY = _isPlayerOn 
             ? _startPos.y + range 
             : _startPos.y;
@@ -29,8 +28,6 @@ public class ElevatorPlatform : MonoBehaviour
             targetY, 
             _startPos.z
         );
-
-        // Smoothly move toward that target position
         Vector3 newPos = Vector3.MoveTowards(
             transform.position, 
             targetPos, 
@@ -45,7 +42,6 @@ public class ElevatorPlatform : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             _isPlayerOn = true;
-            collision.collider.transform.SetParent(transform);
         }
     }
 
@@ -54,7 +50,7 @@ public class ElevatorPlatform : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             _isPlayerOn = false;
-            collision.collider.transform.SetParent(null);
+
         }
     }
 }

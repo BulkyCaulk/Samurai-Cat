@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level1.unity
     guid: b1344646c413ef845848a6c3bcc61525
   - enabled: 1
@@ -18,9 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Stone2.3.1.unity
     guid: 72338e7d52bd37649ab2742d030d611d
   - enabled: 1
+    path: Assets/Scenes/FatCatSaveRoom.unity
+    guid: 80ff0cdc6e75c45458fdada2babc064d
+  - enabled: 1
     path: Assets/Scenes/Boss Room.unity
     guid: dab714a01005a8244a2ff98ca1744953
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/VerticleSlice.unity
     guid: 46973ad140cf2ca4ba820e65b4188d12
   m_configObjects: {}
