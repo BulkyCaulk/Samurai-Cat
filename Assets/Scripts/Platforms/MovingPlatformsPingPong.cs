@@ -18,7 +18,6 @@ public class MovingPlatformPingPong : MonoBehaviour
 
     void FixedUpdate()
     {
-        // PingPong returns a value from 0 → range → 0 over time
         float offset = Mathf.PingPong(Time.time * speed, range);
         Vector2 target = _startPos + Vector3.right * offset;
         _rb.MovePosition(target);
