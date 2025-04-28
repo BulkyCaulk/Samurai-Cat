@@ -1316,8 +1316,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToChange: Stone2.2
+  exitPointName: FallDown
   transition: {fileID: 659000665}
   transitionTime: 1
+  transitionInfoPrefab: {fileID: 7493413313353712271, guid: b93aa6ab9c1009447b597e60e848b00e, type: 3}
 --- !u!4 &1109467194
 Transform:
   m_ObjectHideFlags: 0
@@ -10559,8 +10561,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToChange: Stone2.2
+  exitPointName: 
   transition: {fileID: 659000665}
   transitionTime: 1
+  transitionInfoPrefab: {fileID: 0}
 --- !u!483693784 &1676049020
 TilemapRenderer:
   m_ObjectHideFlags: 0
