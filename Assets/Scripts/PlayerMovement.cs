@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         hasDash = GameManager.Instance.UnlockedDash;
         hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
-        GameManager.Instance.UnlockDash();
+        // GameManager.Instance.UnlockDash();
         GameManager.Instance.UnlockDoubleJump();
         RefreshAbilities();
         rb = GetComponent<Rigidbody2D>();
@@ -126,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         if (groundCheck == null) return;
-        // Draw a red wireframe sphere at the groundCheck position
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
     }
