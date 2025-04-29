@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2213871246737973697}
   - component: {fileID: 8860118865819111188}
   - component: {fileID: 3787003076359608002}
-  - component: {fileID: 1775725542113936087}
   - component: {fileID: 2961243878210977721}
+  - component: {fileID: 7672965908054388607}
   m_Layer: 6
   m_Name: Fireball 1
   m_TagString: Untagged
@@ -28,7 +28,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3972920535433427466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.028721133}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,8 +99,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &1775725542113936087
-CircleCollider2D:
+--- !u!114 &2961243878210977721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3972920535433427466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dea2d334c924874bbcdaf8305c51f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectilePrefab: {fileID: 3972920535433427466}
+  _projectileSpeed: 5
+  _spawnPosition: {fileID: 5017198050484300145, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+--- !u!70 &7672965908054388607
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,21 +146,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.005651474, y: -0.01789856}
-  serializedVersion: 2
-  m_Radius: 0.17014599
---- !u!114 &2961243878210977721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3972920535433427466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dea2d334c924874bbcdaf8305c51f59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 3972920535433427466}
-  _projectileSpeed: 5
-  _spawnPosition: {fileID: 5017198050484300145, guid: 8e0da8b7212ea7145b1d3199453bee61, type: 3}
+  m_Offset: {x: -1.1273774, y: 0.21268511}
+  m_Size: {x: 7.686017, y: 2.871992}
+  m_Direction: 1
