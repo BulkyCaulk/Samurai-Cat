@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float speed = 5f;
     public float sprintSpeed = 8f;
     private float currentSpeed;
@@ -22,12 +21,18 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing;
     public bool hasDoubleJump;
     private bool canDoubleJump = true;
+    private int _oneWayLayerIndex;
+    private LayerMask groundAndPlatformLayer;
     [SerializeField] private float dashingPower = 20f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = .5f;
     [SerializeField] private TrailRenderer tr;
+    [SerializeField] private LayerMask oneWayPlatformLayer;
+
     void Start()
     {
+        groundAndPlatformLayer = groundLayer | oneWayPlatformLayer;
+        _oneWayLayerIndex = Mathf.RoundToInt(Mathf.Log(oneWayPlatformLayer.value, 2));
         hasDash = GameManager.Instance.UnlockedDash;
         hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
         // GameManager.Instance.UnlockDash();
@@ -69,11 +74,18 @@ public class PlayerMovement : MonoBehaviour
 
         // Store previous grounded state
         bool previouslyGrounded = grounded;
-        grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundAndPlatformLayer);
         
         if (previouslyGrounded && !grounded && hasDoubleJump)
         {
             canDoubleJump = true;
+        }
+        
+        bool onPlatform = Physics2D.OverlapCircle(groundCheck.position, checkRadius, oneWayPlatformLayer);
+        if (Input.GetKeyDown(KeyCode.Space) && Input.GetKey(KeyCode.S) && onPlatform)
+        {
+            StartCoroutine(DropThroughPlatform());
+            return;
         }
         
         if (Input.GetKeyDown(KeyCode.Space))
@@ -149,6 +161,26 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
 
     }
+
+private IEnumerator DropThroughPlatform()
+{
+    Collider2D platformCol = Physics2D.OverlapCircle(
+        groundCheck.position,
+        checkRadius,
+        oneWayPlatformLayer
+    );
+    if (platformCol == null)                   // Not on a platform
+        yield break;
+
+    // Disable contact between player and this platform
+    Collider2D playerCol = GetComponent<Collider2D>();
+    Physics2D.IgnoreCollision(playerCol, platformCol, true);
+
+    yield return new WaitForFixedUpdate();
+    yield return new WaitForSeconds(0.6f);
+    Physics2D.IgnoreCollision(playerCol, platformCol, false);
+}
+
 
     private void ResetDoubleJump()
     {

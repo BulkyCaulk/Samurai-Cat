@@ -392,6 +392,9 @@ MonoBehaviour:
   dashingTime: 0.2
   dashingCooldown: 0.5
   tr: {fileID: -8537331647963613891}
+  oneWayPlatformLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!82 &2067204062253523013
 AudioSource:
   m_ObjectHideFlags: 0
