@@ -30,13 +30,18 @@ public class Boss : MonoBehaviour
         _platformsSpawned = new List<GameObject>();
         _platformsToRemove = new List<GameObject>();
     }
+
+
     void Start()
     {
         _pushBackArea = new Vector3(0, 1.5f, 0) + this.transform.position;
     }
+
+
     // Update is called once per frame
     void Update()
     {
+        // timers for spawning platforms and spawning projectiles
         _timer += Time.deltaTime;
         _fireRate -= Time.deltaTime;
 
@@ -47,18 +52,19 @@ public class Boss : MonoBehaviour
             StartCoroutine(_platformCoroutine);
         }
 
-        Debug.Log(_bossHealth);
 
         
-        // needs to be implemented still
+        // Start projectile shooting when boss is damaged
         if(_bossHealth <= 2 && _fireRate <= 0)
         {
+            // reset timer and start shooting projectiles every 1.2 seconds
             _fireRate = 1.2f;
             _shootAttackCoroutine = ShootAttack();
             StartCoroutine(_shootAttackCoroutine);
         }
         
-
+        
+        // For destroying platforms and removing data from lists
         if(_platformsSpawned != null)
         {
             for(int i = 0; i < _platformsSpawned.Count; i++)
@@ -70,28 +76,36 @@ public class Boss : MonoBehaviour
                             _platformsToRemove.Add(_platformsSpawned[i]);
                             _platformsSpawned.Remove(_platformsSpawned[i]);
                             Destroy(_platformsToRemove[i]);
-                            _platformsToRemove = new List<GameObject>();
+                            // old data is released as its no longer useful
+                            _platformsToRemove.Clear();
                         }
                 }
             }
         }
     }
 
+
     private void EnableBossPlatforms()
     {
+        // get a random int for choosing from the two spawn locations 
         _randomSpawnLocation = Random.Range(0,2);
+        // turn on that spawner gameobject and spawn the platform
         _bossPlatformsSpawner[_randomSpawnLocation].SetActive(true);
         GameObject platform = Instantiate(_bossPlatformPattern, _bossPlatformsSpawner[_randomSpawnLocation].transform.position, Quaternion.identity);
+        // 
         if(platform.TryGetComponent<BossPlatforms>(out BossPlatforms component))
         {
             component.SpawnTimeSpan = _platformTimeSpan;
         }
         _platformsSpawned.Add(platform);
     }
+
+
     private void DisableBossPlatforms()
     {
         _bossPlatformsSpawner[_randomSpawnLocation].SetActive(false);
     }
+
 
     private IEnumerator SpawnPlatforms()
     {
@@ -100,6 +114,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(_timerTillNextPlatform);
     }
 
+
     private IEnumerator ShootAttack()
     {
         SpitFireBall();
@@ -107,10 +122,11 @@ public class Boss : MonoBehaviour
     }
 
 
-
     private void SpitFireBall()
     {
+        // spawn projectile object 
        GameObject _projectile =  _spawnProjectile.SpawnProjectileObject();
+       // find the player gameobject in unity 
        GameObject player = GameObject.Find("Player");
        
 
@@ -118,10 +134,14 @@ public class Boss : MonoBehaviour
        if(_projectile.TryGetComponent<SpawnProjectile>(out SpawnProjectile projectileScript))
        {
             _playersLastPosition = Vector3.Normalize(player.transform.position - projectileScript.ProjectileSpawnPosition.transform.position);
-            projectileScript.ProjectileDirection = _playersLastPosition;
+            _projectile.transform.rotation = Quaternion.FromToRotation(Vector3.left, _playersLastPosition);
+            projectileScript.ProjectileDirection = Vector2.left;
             projectileScript.ProjectileGameObject = _projectile;
+            float angleBetweenProjectileDirection = Vector3.Dot(player.transform.position, projectileScript.ProjectileSpawnPosition.transform.position);
+            Debug.Log($"{angleBetweenProjectileDirection} degrees between projectile and direction");
+            Debug.Log($"{_projectile.transform.rotation} is the spawned projectiles rotation");
        }
-       // increase the projectile speed 
+       // increase the projectile speed when boss is close to death - hard coded
        if(_bossHealth == 1)
         {
             projectileScript.ProjectileSpeed = 10;
@@ -129,37 +149,44 @@ public class Boss : MonoBehaviour
         }
     }
 
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         _pushBackArea = new Vector3(0, 1.5f, 0) + this.transform.position;
         Gizmos.DrawWireSphere(_pushBackArea, 3.5f);
     }
+
+
     void PushPlayerAway()
     {
+        // check what is in the area and hold its collider data
         Collider2D objectInVicinity = Physics2D.OverlapCircle(_pushBackArea, 3.5f);
-        Debug.Log(objectInVicinity.name);
+        // check if the collider has a rigidbody and that the objects name is of Player
         if(objectInVicinity.TryGetComponent<Rigidbody2D>(out Rigidbody2D playerRB) && objectInVicinity.name == "Player")
         {
-            Vector2 direction = Vector3.Normalize(_pushBackArea - objectInVicinity.transform.position);
+            // calculate the direction of the player from the _pushBackArea
+            Vector2 direction = Vector3.Normalize(objectInVicinity.transform.position - _pushBackArea);
+            // throw the player in the opposite direction by scalar multiple - hard coded to 30
             playerRB.velocity = direction * 30;
-            Debug.Log($"{playerRB.name} is being pushed?");
         }
     }
 
+
     public void TakeDamage()
     {
-        //reduce enemy health by x amount of damage
+        //reduce boss health
         _bossHealth--;
+        // pushs the player away from boss
         PushPlayerAway();
+        // disable hitbox when boss is damaged
         _bossCollider.enabled = false;
         if(_bossHealth <= 0)
         {
-            //play death animation
-            //_enemyAnimator.SetBool("isDead", true);
-            //destroy game object
             Destroy(gameObject);
-        }
-        
+            //
+        }   
     }
+
+
 }
