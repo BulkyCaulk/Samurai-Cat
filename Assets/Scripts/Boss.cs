@@ -138,8 +138,6 @@ public class Boss : MonoBehaviour
             projectileScript.ProjectileDirection = Vector2.left;
             projectileScript.ProjectileGameObject = _projectile;
             float angleBetweenProjectileDirection = Vector3.Dot(player.transform.position, projectileScript.ProjectileSpawnPosition.transform.position);
-            Debug.Log($"{angleBetweenProjectileDirection} degrees between projectile and direction");
-            Debug.Log($"{_projectile.transform.rotation} is the spawned projectiles rotation");
        }
        // increase the projectile speed when boss is close to death - hard coded
        if(_bossHealth == 1)

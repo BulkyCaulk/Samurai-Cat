@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float jump = 5f;
     [SerializeField] private Rigidbody2D rb;
     private float moveInput;
+    public float MoveInput { get { return moveInput;} }
     private bool grounded;
     [SerializeField] private Transform groundCheck;
     public float checkRadius = 0.2f;
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canDoubleJump = true;
     private int _oneWayLayerIndex;
     private LayerMask groundAndPlatformLayer;
+    private Knockback _knockback;
     [SerializeField] private float dashingPower = 20f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = .5f;
@@ -39,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         GameManager.Instance.UnlockDoubleJump();
         RefreshAbilities();
         rb = GetComponent<Rigidbody2D>();
+        _knockback = GetComponent<Knockback>();
         rb.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
 
         currentSpeed = speed;
@@ -52,6 +55,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(_knockback.IsBeingKnockedBack)
+        {
+            return;
+        }
         moveInput = Input.GetAxisRaw("Horizontal");
 
         if (moveInput > 0 && !_facingRight)
@@ -194,4 +201,5 @@ private IEnumerator DropThroughPlatform()
         hasDash       = GameManager.Instance.UnlockedDash;
         hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
     }
+    
 }

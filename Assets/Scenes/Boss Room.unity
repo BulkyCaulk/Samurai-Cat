@@ -15909,7 +15909,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2079707930456703491, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
       propertyPath: _playerHealth
-      value: 9
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079707930456703491, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+      propertyPath: _knockbackForce
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2079707930456703491, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+      propertyPath: _invincibilityTime
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5612032941909188166, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16314,7 +16322,7 @@ MonoBehaviour:
   - {fileID: 742633992}
   _bossPlatformPattern: {fileID: 2090994017336025798, guid: b957ce82a5ec2f14eb3ab75572ff30af, type: 3}
   _timerTillNextPlatform: 5
-  _bossHealth: 3
+  _bossHealth: 2
   _fireBallSpawner: {fileID: 1374008654}
   _platformTimeSpan: 15
   _spawnProjectile: {fileID: 2961243878210977721, guid: 04b87c081c87a7d4f95ac97063bb28cb, type: 3}

@@ -16,6 +16,7 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private float _bounceHeight = 2.5f;
     [SerializeField] private AudioSource _playSFX;
+    private Knockback _knockback;
     private IEnumerator _attackCoroutine;
     private LayerMask _attackableBounceLayer;
     // Event for when animation for downward attack should start
@@ -24,11 +25,16 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+        _knockback = GetComponent<Knockback>();
         _attackableBounceLayer = LayerMask.GetMask("BounceAttackable");
     }
     // Update is called once per frame
     void Update()
     {
+        if(_knockback.IsBeingKnockedBack)
+        {
+            return;
+        }
         if(Input.GetKey(KeyCode.S))
         {
             _attackCoroutine = DownwardAttack();

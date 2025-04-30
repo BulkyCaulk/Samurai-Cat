@@ -46,7 +46,15 @@ public class SpawnProjectile : MonoBehaviour
         Debug.Log($"Hit {collision.name}");
         if(collision.name == "Player")
         {
-            Locator.Instance.Player.PlayerTakeDamage();
+            Vector2 direction = Vector2.left;
+            float directionXValue = collision.transform.position.x - this.transform.position.x;
+
+            if(directionXValue > 0)
+            {
+                direction = Vector2.right;
+            }
+            
+            Locator.Instance.Player.PlayerTakeDamage(direction);
             Destroy(gameObject);        
         }
         
