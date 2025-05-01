@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2572391170607382188}
   - component: {fileID: 7398443523862680552}
-  - component: {fileID: 457210438896769537}
   - component: {fileID: 4921856161403202024}
-  - component: {fileID: 5489348112875258960}
+  - component: {fileID: 6007905543748848282}
+  - component: {fileID: 6814646157778785070}
+  - component: {fileID: -5665515257800368151}
   m_Layer: 0
   m_Name: Spike Prefab
   m_TagString: Untagged
@@ -87,8 +88,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &457210438896769537
-PolygonCollider2D:
+--- !u!114 &4921856161403202024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819615693529586999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321066117d0f82b41a713109ff222f5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &6007905543748848282
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -129,17 +142,37 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.033233643, y: 0.4014368}
-      - {x: -0.190485, y: 0.19789743}
-      - {x: -0.46941185, y: 0.13784122}
-      - {x: -0.5, y: -0.5}
-      - {x: 0.5, y: -0.5}
-      - {x: 0.47280693, y: 0.15275955}
-      - {x: 0.1276474, y: 0.18391752}
-  m_UseDelaunayMesh: 0
---- !u!114 &4921856161403202024
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!50 &6814646157778785070
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819615693529586999}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-5665515257800368151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,19 +181,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1819615693529586999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 321066117d0f82b41a713109ff222f5a, type: 3}
+  m_Script: {fileID: 11500000, guid: bd176aa935e2c4345a4742b31bc846ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5489348112875258960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819615693529586999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78072c85bfbc3c44988b2b9c4cfb3a2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneToChange: Level2

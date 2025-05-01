@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing;
     public bool hasDoubleJump;
     private bool canDoubleJump = true;
-    private int _oneWayLayerIndex;
     private LayerMask groundAndPlatformLayer;
     private Knockback _knockback;
     private PlayerAttack playerAttack;
@@ -35,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         groundAndPlatformLayer = groundLayer | oneWayPlatformLayer;
-        _oneWayLayerIndex = Mathf.RoundToInt(Mathf.Log(oneWayPlatformLayer.value, 2));
         hasDash = GameManager.Instance.UnlockedDash;
         hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
         // GameManager.Instance.UnlockDash();
