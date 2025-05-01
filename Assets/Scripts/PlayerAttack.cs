@@ -22,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
     // Event for when animation for downward attack should start
     public delegate void OnDownwardAttack();
     public event OnDownwardAttack onDownwardAttackAnimation;
+    public Collider2D objectHit = null;
 
     void Start()
     {
@@ -66,7 +67,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _downwardAttackArea.SetActive(true);
         onDownwardAttackAnimation?.Invoke();
-        Collider2D objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
+        objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
         Debug.Log(objectHit);
         if(objectHit != null)
             CheckDownHit(objectHit);

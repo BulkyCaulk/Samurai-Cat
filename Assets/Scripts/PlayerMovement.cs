@@ -25,12 +25,13 @@ public class PlayerMovement : MonoBehaviour
     private int _oneWayLayerIndex;
     private LayerMask groundAndPlatformLayer;
     private Knockback _knockback;
+    private PlayerAttack playerAttack;
     [SerializeField] private float dashingPower = 20f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = .5f;
     [SerializeField] private TrailRenderer tr;
     [SerializeField] private LayerMask oneWayPlatformLayer;
-
+    
     void Start()
     {
         groundAndPlatformLayer = groundLayer | oneWayPlatformLayer;
@@ -45,11 +46,9 @@ public class PlayerMovement : MonoBehaviour
         rb.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
 
         currentSpeed = speed;
-        var playerAttack = GetComponent<PlayerAttack>();
-        if (playerAttack != null)
-        {
-            playerAttack.onDownwardAttackAnimation += ResetDoubleJump;
-        }
+        playerAttack = GetComponent<PlayerAttack>();
+        playerAttack.onDownwardAttackAnimation += ResetDoubleJump;
+
     }
 
     // Update is called once per frame
@@ -86,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         if (previouslyGrounded && !grounded && hasDoubleJump)
         {
             canDoubleJump = true;
+            Debug.Log("Set canDoubleJump to true");
         }
         
         bool onPlatform = Physics2D.OverlapCircle(groundCheck.position, checkRadius, oneWayPlatformLayer);
@@ -101,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, jump);
                 canDoubleJump = true;
+                Debug.Log("Jump");
             }
             else if (hasDoubleJump)
             {
@@ -108,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     rb.velocity = new Vector2(rb.velocity.x, jump);
                     canDoubleJump = false;
+                    Debug.Log("Double Jump");
                 }
             }        
         }
@@ -192,7 +194,10 @@ private IEnumerator DropThroughPlatform()
     private void ResetDoubleJump()
     {
         // Enable extra jump for the player
-        canDoubleJump = true;
+        if (playerAttack.objectHit != null)
+        {
+            canDoubleJump = true;
+        }
     }
 
     // For when the player gains a new ability, call this method to refresh the variable

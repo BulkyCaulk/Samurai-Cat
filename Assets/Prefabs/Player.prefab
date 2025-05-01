@@ -144,7 +144,7 @@ MonoBehaviour:
   _playerRigidbody: {fileID: 4404443888043599914}
   _upwardForcePower: 6
   _attackWaitTime: 1
-  _attackRadius: 1
+  _attackRadius: 1.3
   _playerData: {fileID: 11400000, guid: f4bbe8e90be67c248b1faceaf108bdd0, type: 2}
   _bounceHeight: 2.5
   _playSFX: {fileID: 2067204062253523013}
