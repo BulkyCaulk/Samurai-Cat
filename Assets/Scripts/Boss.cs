@@ -125,7 +125,7 @@ public class Boss : MonoBehaviour
     private void SpitFireBall()
     {
         // spawn projectile object 
-       GameObject _projectile =  _spawnProjectile.SpawnProjectileObject();
+       GameObject _projectile =  _spawnProjectile.SpawnProjectileObject(_fireBallSpawner.transform.position);
        // find the player gameobject in unity 
        GameObject player = GameObject.Find("Player");
        
@@ -133,11 +133,10 @@ public class Boss : MonoBehaviour
        // set the direction and player position for the projectile
        if(_projectile.TryGetComponent<SpawnProjectile>(out SpawnProjectile projectileScript))
        {
-            _playersLastPosition = Vector3.Normalize(player.transform.position - projectileScript.ProjectileSpawnPosition.transform.position);
+            _playersLastPosition = Vector3.Normalize(player.transform.position - _fireBallSpawner.transform.position);
             _projectile.transform.rotation = Quaternion.FromToRotation(Vector3.left, _playersLastPosition);
             projectileScript.ProjectileDirection = Vector2.left;
             projectileScript.ProjectileGameObject = _projectile;
-            float angleBetweenProjectileDirection = Vector3.Dot(player.transform.position, projectileScript.ProjectileSpawnPosition.transform.position);
        }
        // increase the projectile speed when boss is close to death - hard coded
        if(_bossHealth == 1)
