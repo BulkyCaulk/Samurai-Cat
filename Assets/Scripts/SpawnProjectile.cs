@@ -10,7 +10,7 @@ public class SpawnProjectile : MonoBehaviour
     private float _timeSpan;
     private GameObject _projectile;
     private Vector2 _projectileDirection;
-    public GameObject ProjectileSpawnPosition {get { return _spawnPosition ;} }
+    public GameObject ProjectileSpawnPosition {get { return _spawnPosition ;} set {_spawnPosition = value ; } }
     public Vector2 ProjectileDirection { set {_projectileDirection = value; } }
     public GameObject ProjectileGameObject { set {_projectile = value; } }
     public float TimeSpan { set { _timeSpan = value ; } }
@@ -20,9 +20,9 @@ public class SpawnProjectile : MonoBehaviour
     {
         _timeSpan = 5;
     }
-    public GameObject SpawnProjectileObject()
+    public GameObject SpawnProjectileObject(Vector3 spawnPosition)
     {
-        _projectile = Instantiate(_projectilePrefab, _spawnPosition.transform.position, Quaternion.identity);
+        _projectile = Instantiate(_projectilePrefab, spawnPosition, Quaternion.identity);
         return _projectile;
     }
 
@@ -31,6 +31,7 @@ public class SpawnProjectile : MonoBehaviour
         _timeSpan -= Time.deltaTime;
         if(_projectile != null)
         {
+            Debug.Log($"{_projectile}");
             _projectile.transform.Translate(_projectileDirection * _projectileSpeed * Time.deltaTime);
 
         }
@@ -46,15 +47,15 @@ public class SpawnProjectile : MonoBehaviour
         Debug.Log($"Hit {collision.name}");
         if(collision.name == "Player")
         {
-            Vector2 direction = Vector2.left;
+            Vector2 kbDirection = Vector2.left;
             float directionXValue = collision.transform.position.x - this.transform.position.x;
 
             if(directionXValue > 0)
             {
-                direction = Vector2.right;
+                kbDirection = Vector2.right;
             }
             
-            Locator.Instance.Player.PlayerTakeDamage(direction);
+            Locator.Instance.Player.PlayerTakeDamage(kbDirection);
             Destroy(gameObject);        
         }
         
