@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         groundAndPlatformLayer = groundLayer | oneWayPlatformLayer;
         hasDash = GameManager.Instance.UnlockedDash;
         hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
-        // GameManager.Instance.UnlockDash();
+        GameManager.Instance.UnlockDash();
         GameManager.Instance.UnlockDoubleJump();
         RefreshAbilities();
         rb = GetComponent<Rigidbody2D>();
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         currentSpeed = speed;
         playerAttack = GetComponent<PlayerAttack>();
-        playerAttack.onDownwardAttackAnimation += ResetDoubleJump;
+        playerAttack.onDownwardAttackHit += ResetDoubleJump;
 
     }
 

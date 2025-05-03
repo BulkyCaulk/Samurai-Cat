@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 2692808971480557073}
   - component: {fileID: 731470633891616202}
   - component: {fileID: -7839903222453248606}
-  m_Layer: 0
+  - component: {fileID: -1185488367525605967}
+  m_Layer: 7
   m_Name: HorizontalSaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4265878534741727649}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: -1}
   m_LocalScale: {x: 0.4, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -132,8 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e029571eff1042340aad546cc0298a5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  lifetime: 3
+  speed: 10
+  lifetime: 4
+  _obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &-7839903222453248606
 Rigidbody2D:
   serializedVersion: 4
@@ -161,6 +165,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!210 &-1185488367525605967
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4265878534741727649}
+  m_Enabled: 1
+  m_SortingLayerID: 330550155
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &4979714462065246359
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2056101819021337025}
   - component: {fileID: 7942093633777130429}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dungeon Tile Set_130
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6208401712295813244}
   - component: {fileID: 4029938633695167268}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dungeon Tile Set_127
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1234373262855482913}
   - component: {fileID: 5869649576469146317}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dungeon Tile Set_129
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 337931689590763397}
   - component: {fileID: 6159245872419242694}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dungeon Tile Set_128
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2832006960656750772}
   - component: {fileID: 2159640936077676874}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dungeon Tile Set_132
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,7 +607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3146859386657998090}
   - component: {fileID: 1800833619298336323}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dungeon Tile Set_131
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,7 +4,7 @@ public class DestroyShoot : MonoBehaviour
 {
     [SerializeField] float speed   = 5f;   // default speed
     [SerializeField] float lifetime = 3f;  // default lifetime
-
+    [SerializeField] private LayerMask _obstacleLayer;
     Rigidbody2D rb;
 
     void Awake()
@@ -26,5 +26,13 @@ public class DestroyShoot : MonoBehaviour
 
         rb.velocity = new Vector2(speed, rb.velocity.y);
         Destroy(gameObject, lifetime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("ProjSpawner") != true && other.CompareTag("Player") != true)
+        {
+            Destroy(gameObject);
+        }
     }
 }
