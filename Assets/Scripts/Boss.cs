@@ -16,6 +16,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private float _fireRate;
     [SerializeField] private BoxCollider2D _bossCollider;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private Animator _animator;
     private float _timer;
     private IEnumerator _platformCoroutine;
     private IEnumerator _shootAttackCoroutine;
@@ -120,6 +121,7 @@ public class Boss : MonoBehaviour
 
     private IEnumerator ShootAttack()
     {
+        _animator.SetTrigger("bossSpit");
         SpitFireBall();
         yield return new WaitForSeconds(2);
     }

@@ -16634,6 +16634,7 @@ MonoBehaviour:
   _fireRate: 1.2
   _bossCollider: {fileID: 1911927671}
   playerMovement: {fileID: 1308894821}
+  _animator: {fileID: 1911927668}
 --- !u!114 &1911927673
 MonoBehaviour:
   m_ObjectHideFlags: 0
