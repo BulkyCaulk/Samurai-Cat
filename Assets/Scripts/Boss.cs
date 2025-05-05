@@ -9,10 +9,13 @@ public class Boss : MonoBehaviour
     [SerializeField] private float _timerTillNextPlatform;
     [SerializeField] private float _bossHealth;
     [SerializeField] private GameObject _fireBallSpawner;
+    [SerializeField] private GameObject blockedWall1;
+    [SerializeField] private GameObject blockedWall2;
     [SerializeField] private float _platformTimeSpan;
     [SerializeField] private SpawnProjectile _spawnProjectile;
     [SerializeField] private float _fireRate;
     [SerializeField] private BoxCollider2D _bossCollider;
+    [SerializeField] private PlayerMovement playerMovement;
     private float _timer;
     private IEnumerator _platformCoroutine;
     private IEnumerator _shootAttackCoroutine;
@@ -181,7 +184,10 @@ public class Boss : MonoBehaviour
         if(_bossHealth <= 0)
         {
             Destroy(gameObject);
-            //
+            GameManager.Instance.UnlockDash();
+            playerMovement.RefreshAbilities();
+            //blockedWall1.SetActive(false);
+            blockedWall2.SetActive(false);
         }   
     }
 

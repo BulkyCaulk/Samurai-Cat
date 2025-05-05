@@ -30,7 +30,7 @@ public class DestroyShoot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("ProjSpawner") != true && other.CompareTag("Player") != true)
+        if (other.CompareTag("ProjSpawner") != true && other.CompareTag("Player") != true && other.CompareTag("CameraBorder") != true)
         {
             Destroy(gameObject);
         }
