@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
         {
             _playerHealth--;
             _isInvincible = true;
-            _knockback.CallKnockBackAction(-_knockbackDirection.normalized, Vector2.down + Vector2.left, Input.GetAxisRaw("Horizontal"));
+            _knockback.CallKnockBackAction(-_knockbackDirection.normalized, _knockbackDirection.normalized, Input.GetAxisRaw("Horizontal"));
             StartCoroutine(TemporaryInvincibility());
         }
         if(_playerHealth <= 0)

@@ -13,9 +13,12 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _attackWaitTime;
     [SerializeField] private float _attackRadius;
     [SerializeField] private PlayerData _playerData;
-
     [SerializeField] private float _bounceHeight = 2.5f;
     [SerializeField] private AudioSource _playSFX;
+    [SerializeField] private BoxCollider2D _playerBoxCollider;
+    [SerializeField] private BoxCollider2D _playerDownAttackCollider;
+
+
     private Knockback _knockback;
     private IEnumerator _attackCoroutine;
     private LayerMask _attackableBounceLayer;
@@ -24,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
     public event OnDownwardAttack onDownwardAttackAnimation;
     public event OnDownwardAttack onDownwardAttackHit;
     public Collider2D objectHit = null;
+
 
 
     void Start()
@@ -68,6 +72,8 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator DownwardAttack()
     {
         _downwardAttackArea.SetActive(true);
+        _playerBoxCollider.enabled = false;
+
         onDownwardAttackAnimation?.Invoke();
 
         objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
@@ -78,6 +84,7 @@ public class PlayerAttack : MonoBehaviour
             onDownwardAttackHit?.Invoke();
         yield return new WaitForSeconds(_attackWaitTime);
         _downwardAttackArea.SetActive(false);
+        _playerBoxCollider.enabled = true;
     }
 
 

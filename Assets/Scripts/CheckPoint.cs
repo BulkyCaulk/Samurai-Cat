@@ -9,9 +9,11 @@ public class CheckPoint : MonoBehaviour
 
     private bool _inRange;
     private bool _activated;
+    private Vector3 _spawnOffset;
 
     void Start()
     {
+        _spawnOffset = new Vector3(0, .107565f ,0);
         if (interactPrompt != null)
             interactPrompt.SetActive(false);
         RefreshVisuals();
@@ -24,7 +26,7 @@ public class CheckPoint : MonoBehaviour
             // mark this as the only lit checkpoint
             GameManager.Instance.ActivateCheckpoint(
                 checkPointId,
-                transform.position,
+                transform.position + _spawnOffset,
                 SceneManager.GetActiveScene().name
             );
 

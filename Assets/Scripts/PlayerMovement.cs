@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private Knockback _knockback;
     private PlayerAttack playerAttack;
     private Animator _playerAnimator;
+    private Collider2D _playerSecondCollider;
+    [SerializeField] private Collider2D _playerThirdCollider;
     [SerializeField] private float dashingPower = 20f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = .5f;
@@ -48,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = speed;
         playerAttack = GetComponent<PlayerAttack>();
         playerAttack.onDownwardAttackHit += ResetDoubleJump;
+
+        SetPlayerCollider();
 
     }
 
@@ -185,10 +189,14 @@ private IEnumerator DropThroughPlatform()
     // Disable contact between player and this platform
     Collider2D playerCol = GetComponent<Collider2D>();
     Physics2D.IgnoreCollision(playerCol, platformCol, true);
+    Physics2D.IgnoreCollision(_playerSecondCollider, platformCol, true);
+    Physics2D.IgnoreCollision(_playerThirdCollider, platformCol, true);
 
     yield return new WaitForFixedUpdate();
     yield return new WaitForSeconds(0.6f);
     Physics2D.IgnoreCollision(playerCol, platformCol, false);
+    Physics2D.IgnoreCollision(_playerSecondCollider, platformCol, false);
+    Physics2D.IgnoreCollision(_playerThirdCollider, platformCol, false);
 }
 
 
@@ -208,4 +216,10 @@ private IEnumerator DropThroughPlatform()
         hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
     }
     
+    private void SetPlayerCollider()
+    {
+        Transform child = gameObject.transform.GetChild(3);
+        _playerSecondCollider = child.GetComponent<BoxCollider2D>();
+
+    }
 }
