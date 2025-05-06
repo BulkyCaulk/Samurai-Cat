@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask groundAndPlatformLayer;
     private Knockback _knockback;
     private PlayerAttack playerAttack;
+    private Animator _playerAnimator;
     [SerializeField] private float dashingPower = 20f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = .5f;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         GameManager.Instance.UnlockDoubleJump();
         RefreshAbilities();
         rb = GetComponent<Rigidbody2D>();
+        _playerAnimator = GetComponent<Animator>();
         _knockback = GetComponent<Knockback>();
         rb.collisionDetectionMode =  CollisionDetectionMode2D.Continuous;
 
@@ -155,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
         float originalGravity = rb.gravityScale;
+        _playerAnimator.SetTrigger("playerDash");
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         tr.emitting = true;
