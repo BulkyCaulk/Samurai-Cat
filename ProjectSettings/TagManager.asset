@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - ProjSpawner
   - CameraBorder
+  - FloorBoxCollider
   layers:
   - Default
   - TransparentFX
