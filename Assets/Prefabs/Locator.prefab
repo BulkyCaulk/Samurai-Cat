@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80da18c61d2d64f419daf0e74da0d3f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAttackScript: {fileID: 0}
-  _playerAnimatorController: {fileID: 0}
+  _playerAttackScript: {fileID: 3943529906947194507, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+  _playerAnimatorController: {fileID: 7174844555871556426, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+  _playerHealthScript: {fileID: 2079707930456703491, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+  _playerMovementScript: {fileID: 2830634047273994337, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}

@@ -33,6 +33,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashingCooldown = .5f;
     [SerializeField] private TrailRenderer tr;
     [SerializeField] private LayerMask oneWayPlatformLayer;
+
+    public delegate void OnPlayerMove();
+    public event OnPlayerMove OnPlayerRun;
+    public event OnPlayerMove OnPlayerNotRun;
+    public event OnPlayerMove OnPlayerSprint;
+    public event OnPlayerMove OnPlayerNotSprint;
     
     void Start()
     {
@@ -58,11 +64,26 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P)){
+            GameManager.Instance.UnlockDash();
+            RefreshAbilities();
+        }
+        
+
         if(_knockback.IsBeingKnockedBack)
         {
             return;
         }
         moveInput = Input.GetAxisRaw("Horizontal");
+
+        if (moveInput > 0 || moveInput < 0)
+        {
+            OnPlayerRun?.Invoke();
+        }
+        else 
+        {
+            OnPlayerNotRun?.Invoke();
+        }
 
         if (moveInput > 0 && !_facingRight)
         {
@@ -76,10 +97,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentSpeed = sprintSpeed;
+            OnPlayerSprint?.Invoke();
         }
         else
         {
             currentSpeed = speed;
+            OnPlayerNotSprint?.Invoke();
         }
 
         // Store previous grounded state

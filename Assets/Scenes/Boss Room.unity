@@ -16029,6 +16029,7 @@ MonoBehaviour:
   _playerAttackScript: {fileID: 1308894807}
   _playerAnimatorController: {fileID: 1308894818}
   _playerHealthScript: {fileID: 1308894815}
+  _playerMovementScript: {fileID: 1308894821}
 --- !u!4 &1054190503
 Transform:
   m_ObjectHideFlags: 0

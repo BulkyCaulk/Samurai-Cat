@@ -217,6 +217,28 @@ PrefabInstance:
       addedObject: {fileID: 1014388598}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+--- !u!114 &133120126 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2830634047273994337, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+  m_PrefabInstance: {fileID: 133120125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f303bf84760c743ac25c8b8223ae1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &133120127 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2079707930456703491, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+  m_PrefabInstance: {fileID: 133120125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4d3194f07fa2941b108de4619fa5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &251150662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1259,7 +1281,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerAttackScript: {fileID: 869453014}
   _playerAnimatorController: {fileID: 1825379746}
-  _playerHealthScript: {fileID: 0}
+  _playerHealthScript: {fileID: 133120127}
+  _playerMovementScript: {fileID: 133120126}
 --- !u!4 &1476967491
 Transform:
   m_ObjectHideFlags: 0
