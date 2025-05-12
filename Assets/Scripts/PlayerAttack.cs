@@ -42,22 +42,14 @@ public class PlayerAttack : MonoBehaviour
         {
             return;
         }
-        if(Input.GetKey(KeyCode.S))
+        // should put attack timer here too? 
+        if(Input.GetKeyDown(_attackButton))
         {
             _attackCoroutine = DownwardAttack();
-            if(Input.GetKeyDown(_attackButton))
-            {
-                StartCoroutine(_attackCoroutine);
-            }
-        }
-        else if(Input.GetKeyDown(_attackButton))
-        {
-            _attackCoroutine = BasicAttack();
             StartCoroutine(_attackCoroutine);
         }
-
-        
     }
+
 
     private IEnumerator BasicAttack()
     {
@@ -83,6 +75,8 @@ public class PlayerAttack : MonoBehaviour
             CheckDownHit(objectHit);
             onDownwardAttackHit?.Invoke();
         yield return new WaitForSeconds(_attackWaitTime);
+        // should not wait for attack wait time to be done, instead wait till animation is done playing then turn back on
+        // gonna move it up above or better calculate animation time and place it in wait for seconds 
         _downwardAttackArea.SetActive(false);
         _playerBoxCollider.enabled = true;
     }
