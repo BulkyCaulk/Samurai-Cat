@@ -24,10 +24,12 @@ public class PlayerAttack : MonoBehaviour
     private LayerMask _attackableBounceLayer;
     // Event for when animation for downward attack should start
     public delegate void OnDownwardAttack();
+    public delegate float OnDownwardAttackFloat(string animationName);
     public event OnDownwardAttack onDownwardAttackAnimation;
     public event OnDownwardAttack onDownwardAttackHit;
+    public event OnDownwardAttackFloat onDownwardAttackAnimationDuration;
     public Collider2D objectHit = null;
-
+    private float _animationDuration;
 
 
     void Start()
@@ -63,10 +65,12 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator DownwardAttack()
     {
-        _downwardAttackArea.SetActive(true);
+        //_downwardAttackArea.SetActive(true);
         _playerBoxCollider.enabled = false;
 
         onDownwardAttackAnimation?.Invoke();
+        _animationDuration = onDownwardAttackAnimationDuration.Invoke("DownwardAttack");
+
 
         objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
         Debug.Log(objectHit);
@@ -74,10 +78,10 @@ public class PlayerAttack : MonoBehaviour
         if(objectHit != null)
             CheckDownHit(objectHit);
             onDownwardAttackHit?.Invoke();
-        yield return new WaitForSeconds(_attackWaitTime);
+        yield return new WaitForSeconds(_animationDuration);
         // should not wait for attack wait time to be done, instead wait till animation is done playing then turn back on
         // gonna move it up above or better calculate animation time and place it in wait for seconds 
-        _downwardAttackArea.SetActive(false);
+        //_downwardAttackArea.SetActive(false);
         _playerBoxCollider.enabled = true;
     }
 
@@ -92,7 +96,6 @@ public class PlayerAttack : MonoBehaviour
     }
     private void CheckDownHit(Collider2D collision)
     {
-        //Debug.Log($"Hit {collision.name}");
         if(collision.gameObject.TryGetComponent<BounceAttackable>(out BounceAttackable bounceableObject))
         {
             float gravity = Physics2D.gravity.y * _playerRigidbody.gravityScale;
