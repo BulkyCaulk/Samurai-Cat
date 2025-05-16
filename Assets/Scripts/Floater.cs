@@ -16,7 +16,6 @@ public class Floater : MonoBehaviour
     void FixedUpdate()
     {
         //changes gravity scale of object to simulate floating
-        Debug.Log(_objectStartPosition + "      " + this.transform.position);
         if(_objectStartPosition.y > this.transform.position.y + .04f)
         {
             _objectRigidbody.gravityScale = -.01f;
@@ -38,9 +37,9 @@ public class Floater : MonoBehaviour
 // Changes the player mass because the platforms would fall
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.name == "FloorBoxCollider")
         {
-            Rigidbody2D playerRB = collision.GetComponent<Rigidbody2D>();
+            Rigidbody2D playerRB = collision.GetComponentInParent<Rigidbody2D>();
             Debug.Log("enter");
             playerRB.mass = .002f;
         }
@@ -50,9 +49,9 @@ public class Floater : MonoBehaviour
 // Reverts player mass when player leaves platform
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.name == "FloorBoxCollider")
         {
-            Rigidbody2D playerRB = collision.GetComponent<Rigidbody2D>();
+            Rigidbody2D playerRB = collision.GetComponentInParent<Rigidbody2D>();
             Debug.Log("exit");
             playerRB.mass = 1;
         }

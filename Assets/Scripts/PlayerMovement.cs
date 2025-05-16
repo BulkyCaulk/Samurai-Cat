@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         if (previouslyGrounded && !grounded && hasDoubleJump)
         {
             canDoubleJump = true;
-            Debug.Log("Set canDoubleJump to true");
+            //Debug.Log("Set canDoubleJump to true");
         }
         
         bool onPlatform = Physics2D.OverlapCircle(groundCheck.position, checkRadius, oneWayPlatformLayer);
@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, jump);
                 canDoubleJump = true;
-                Debug.Log("Jump");
+                //Debug.Log("Jump");
             }
             else if (hasDoubleJump)
             {
@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     rb.velocity = new Vector2(rb.velocity.x, jump);
                     canDoubleJump = false;
-                    Debug.Log("Double Jump");
+                    //Debug.Log("Double Jump");
                 }
             }        
         }
