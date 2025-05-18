@@ -223,13 +223,10 @@ private IEnumerator DropThroughPlatform()
 }
 
 
-    private void ResetDoubleJump()
+    public void ResetDoubleJump()
     {
-        // Enable extra jump for the player
-        if (playerAttack.objectHit != null)
-        {
-            canDoubleJump = true;
-        }
+        // Reset extra jump for the player
+        canDoubleJump = true;
     }
 
     // For when the player gains a new ability, call this method to refresh the variable
