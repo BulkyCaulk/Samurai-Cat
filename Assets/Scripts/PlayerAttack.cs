@@ -66,7 +66,7 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator DownwardAttack()
     {
         //_downwardAttackArea.SetActive(true);
-        _playerBoxCollider.enabled = false;
+        // _playerBoxCollider.enabled = false;
 
         onDownwardAttackAnimation?.Invoke();
         _animationDuration = onDownwardAttackAnimationDuration.Invoke("DownwardAttack");
@@ -82,7 +82,7 @@ public class PlayerAttack : MonoBehaviour
         // should not wait for attack wait time to be done, instead wait till animation is done playing then turn back on
         // gonna move it up above or better calculate animation time and place it in wait for seconds 
         //_downwardAttackArea.SetActive(false);
-        _playerBoxCollider.enabled = true;
+        // _playerBoxCollider.enabled = true;
     }
 
 

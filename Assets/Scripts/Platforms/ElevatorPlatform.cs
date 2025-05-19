@@ -39,7 +39,7 @@ public class ElevatorPlatform : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("FloorBoxCollider"))
         {
             _isPlayerOn = true;
         }
@@ -47,7 +47,7 @@ public class ElevatorPlatform : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("FloorBoxCollider"))
         {
             _isPlayerOn = false;
 

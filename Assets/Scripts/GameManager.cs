@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         => UnlockedDash = true;
     public void UnlockDoubleJump()
         => UnlockedDoubleJump = true;
-    
+
     public void OnResumeButton() => Resume();
     public void OnBackToMenu() => ReturnToMenu();
     void Awake()
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             _respawnScene = SceneManager.GetActiveScene().name;
-            _respawnPos   = startPoint != null
+            _respawnPos = startPoint != null
                            ? startPoint.position
                            : Vector3.zero;
 
@@ -52,12 +52,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (SceneManager.GetActiveScene().name == "Starting_Menu")
-        {
-            return;
-        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (SceneManager.GetActiveScene().name == "Starting_Menu")
+            {
+                return;
+            }
             if (isPaused)
             {
                 Resume();
@@ -93,11 +93,7 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == _respawnScene)
-        {
-            var player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-                player.transform.position = _respawnPos;
-        }
+            StartCoroutine(DoRespawn());
     }
 
     // Clear out any previously-lit checkpoint, then mark this one.
@@ -105,9 +101,11 @@ public class GameManager : MonoBehaviour
     {
         _litCheckpoints.Clear();
         _litCheckpoints.Add($"{sceneName}:{checkPointId}");
-
+        Debug.Log($"{sceneName}, {checkPointId}");
         _respawnScene = sceneName;
-        _respawnPos   = worldPos;
+        _respawnPos = worldPos;
+
+        Debug.Log($"Saved: {_respawnScene}, {_respawnPos}");
     }
 
     public bool IsCheckpointLit(string checkPointId, string sceneName)
@@ -118,5 +116,18 @@ public class GameManager : MonoBehaviour
     public void ReloadToCheckpoint()
     {
         SceneManager.LoadScene(_respawnScene);
+    }
+
+    private System.Collections.IEnumerator DoRespawn()
+    {
+        yield return null;
+
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = _respawnPos;
+        }
+        else Debug.Log("Respawn failed at checkpoint");
     }
 }
