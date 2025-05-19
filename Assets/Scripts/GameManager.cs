@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     [Tooltip("Drag in the scene’s default spawn-point (empty Transform) here")]
     [SerializeField] private Transform startPoint;
 
+    [Header("Pause Menu UI")]
+    [Tooltip("PauseMenu Canvas")]
+    [SerializeField] private GameObject pauseMenuUI;
+    private bool isPaused = false;
+
     private string _respawnScene;
     private Vector3 _respawnPos;
 
@@ -21,6 +26,9 @@ public class GameManager : MonoBehaviour
         => UnlockedDash = true;
     public void UnlockDoubleJump()
         => UnlockedDoubleJump = true;
+    
+    public void OnResumeButton() => Resume();
+    public void OnBackToMenu() => ReturnToMenu();
     void Awake()
     {
         if (Instance == null)
@@ -39,6 +47,47 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void Update()
+    {
+
+        if (SceneManager.GetActiveScene().name == "Starting_Menu")
+        {
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+    public void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("Starting_Menu");
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
