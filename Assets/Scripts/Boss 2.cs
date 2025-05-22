@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Boss2 : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _bossAttackPositions;
-    [SerializeField] private List<GameObject> _bossSlerpPositions;
-    [SerializeField] private GameObject _bossSpitPosition;
+    [SerializeField] private List<Transform> _bossSpawnPositions;
+    [SerializeField] private List<Transform> _bossSlerpPositions;
+    [SerializeField] private List<Transform> _bossSpitPositions;
     
 }
