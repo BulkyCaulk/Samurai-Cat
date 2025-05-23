@@ -36,12 +36,15 @@ public class Boss2 : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
+
+        // current health can't be set on first frame
         if (_currentHealth == 0)
         {
             _currentHealth = this.GetComponent<Enemy>().Enemy_Health;
         }
         _reducedHealth = this.GetComponent<Enemy>().Enemy_Health;
-        Debug.Log($"Boss health: {_reducedHealth}         Previous Health: {_currentHealth}");
+
+
         if (_reducedHealth < _currentHealth)
         {
             _spitCannon.SetActive(false);
@@ -71,7 +74,7 @@ public class Boss2 : MonoBehaviour
         _isCorountineRunning = true;
         this.transform.position = GetSpawnPosition();
         Debug.Log($"Spawning at position: {_spawnIndex}");
-        SignalPlayer();
+        StartCoroutine(SignalPlayer());
 
         yield return new WaitUntil(() => particle.isStopped);
 
@@ -95,22 +98,22 @@ public class Boss2 : MonoBehaviour
         float timeElapsed = 0;
         _timer = 0;
 
-
         while (timeElapsed < _bossLerpDuration)
         {
             this.transform.position = Vector3.Lerp(_bossSpitPositions[_spawnIndex].position, _bossSpawnPositions[_spawnIndex].position, timeElapsed / _bossLerpDuration);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-
     
         this.transform.position = _bossSpawnPositions[_spawnIndex].position;
+
         yield return new WaitUntil(() => this.transform.position == _bossSpawnPositions[_spawnIndex].position);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(.5f);
+
+        _platformDisabled.SetActive(true);
+
         _currentAttack = BossSlerpin();
         StartCoroutine(_currentAttack);
-        // after boss reaches bottom position turn on collision game object
-        _platformDisabled.SetActive(true);
     }
 
 
@@ -122,13 +125,15 @@ public class Boss2 : MonoBehaviour
         // slerp
         while (timeElapsed < _bossLerpDuration)
         {
-            this.transform.position = Vector3.Slerp(_bossSlerpPositions[0].position, _bossSlerpPositions[1].position, timeElapsed / _bossLerpDuration);
+            this.transform.position = Vector3.Slerp(_bossSlerpPositions[1].position, _bossSlerpPositions[0].position, timeElapsed / _bossLerpDuration) * -1;
             timeElapsed += Time.deltaTime;
             yield return null;
         }
         this.transform.position = _bossSlerpPositions[1].position;
 
         yield return new WaitUntil(() => this.transform.position == _bossSlerpPositions[1].position);
+
+        // reset encounter
         _spitCannon.SetActive(false);
         _isSlerpin = false;
         _timer = 0;
@@ -138,7 +143,7 @@ public class Boss2 : MonoBehaviour
     IEnumerator SignalPlayer()
     {
         // set particle position to where the boss 
-        particle.transform.position = _bossSpawnPositions[_spawnIndex].position;
+        //particle.transform.position = _bossSpawnPositions[_spawnIndex].position;
         particle.Play();
         yield return new WaitUntil(() => particle.isStopped);
 
