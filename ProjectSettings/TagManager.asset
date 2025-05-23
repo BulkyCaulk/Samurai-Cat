@@ -9,6 +9,7 @@ TagManager:
   - ProjSpawner
   - CameraBorder
   - FloorBoxCollider
+  - PlatformDisableable
   layers:
   - Default
   - TransparentFX
