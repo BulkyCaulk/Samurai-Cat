@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -17,7 +18,10 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private AudioSource _playSFX;
     [SerializeField] private BoxCollider2D _playerBoxCollider;
     [SerializeField] private BoxCollider2D _playerDownAttackCollider;
-
+    [SerializeField] private ParticleSystem particle;
+    [SerializeField] private GameObject attackVisual;
+    private ParticleSystem particleInstance;
+    private GameObject attackVisualInstance;
 
     private Knockback _knockback;
     private IEnumerator _attackCoroutine;
@@ -30,6 +34,7 @@ public class PlayerAttack : MonoBehaviour
     public event OnDownwardAttackFloat onDownwardAttackAnimationDuration;
     public Collider2D objectHit = null;
     private float _animationDuration;
+    private bool _canAttack = true;
 
 
     void Start()
@@ -40,12 +45,12 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_knockback.IsBeingKnockedBack)
+        if (_knockback.IsBeingKnockedBack)
         {
             return;
         }
         // should put attack timer here too? 
-        if(Input.GetKeyDown(_attackButton))
+        if (Input.GetKeyDown(_attackButton) && _canAttack == true)
         {
             _attackCoroutine = DownwardAttack();
             StartCoroutine(_attackCoroutine);
@@ -56,8 +61,8 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator BasicAttack()
     {
         _basicAttackArea.SetActive(true);
-        Collider2D objectHit = Physics2D.OverlapCircle(_basicAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
-        if(objectHit != null)
+        Collider2D objectHit = Physics2D.OverlapCircle(_basicAttackArea.transform.position, _attackRadius, _attackableBounceLayer);
+        if (objectHit != null)
             CheckHit(objectHit);
         yield return new WaitForSeconds(_attackWaitTime);
         _basicAttackArea.SetActive(false);
@@ -67,18 +72,20 @@ public class PlayerAttack : MonoBehaviour
     {
         //_downwardAttackArea.SetActive(true);
         // _playerBoxCollider.enabled = false;
-
+        _canAttack = false;
         onDownwardAttackAnimation?.Invoke();
         _animationDuration = onDownwardAttackAnimationDuration.Invoke("DownwardAttack");
+        SpawnHitVisuals();
 
 
-        objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position,_attackRadius, _attackableBounceLayer);
+        objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position, _attackRadius, _attackableBounceLayer);
         Debug.Log(objectHit);
 
-        if(objectHit != null)
+        if (objectHit != null)
             CheckDownHit(objectHit);
-            onDownwardAttackHit?.Invoke();
+        onDownwardAttackHit?.Invoke();
         yield return new WaitForSeconds(_animationDuration);
+        _canAttack = true;
         // should not wait for attack wait time to be done, instead wait till animation is done playing then turn back on
         // gonna move it up above or better calculate animation time and place it in wait for seconds 
         //_downwardAttackArea.SetActive(false);
@@ -88,15 +95,15 @@ public class PlayerAttack : MonoBehaviour
 
     private void CheckHit(Collider2D collision)
     {
-        if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyGameObject))
+        if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyGameObject))
         {
             enemyGameObject.TakeDamage(_attackDamage);
         }
-        
+
     }
     private void CheckDownHit(Collider2D collision)
     {
-        if(collision.gameObject.TryGetComponent<BounceAttackable>(out BounceAttackable bounceableObject))
+        if (collision.gameObject.TryGetComponent<BounceAttackable>(out BounceAttackable bounceableObject))
         {
             float gravity = Physics2D.gravity.y * _playerRigidbody.gravityScale;
             float bounceVelocity = Mathf.Sqrt(2f * -gravity * _bounceHeight);
@@ -106,16 +113,39 @@ public class PlayerAttack : MonoBehaviour
 
             verticle.y = bounceVelocity;
             _playerRigidbody.velocity = verticle;
+            SpawnHitParticles();
             _playSFX.clip = _playerData._downWardAttack;
             _playSFX.Play();
         }
-        if(collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyGameObject))
+        if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemyGameObject))
         {
             enemyGameObject.TakeDamage(_attackDamage);
         }
-        if(collision.gameObject.TryGetComponent<Boss>(out Boss bossGameObject))
+        if (collision.gameObject.TryGetComponent<Boss>(out Boss bossGameObject))
         {
             bossGameObject.TakeDamage();
         }
+    }
+    // Spawns the particle effect below the player
+    private void SpawnHitParticles()
+    {
+        Vector3 currentTransform = transform.position;
+        Quaternion spawnRotation = particle.transform.rotation;
+        currentTransform.y = (float)(currentTransform.y - 1.3);
+        particleInstance = Instantiate(particle, currentTransform, spawnRotation);
+    }
+
+    //
+    private void SpawnHitVisuals()
+    {
+        Vector3 currentTransform = transform.position;
+        currentTransform.y = currentTransform.y - 1;
+        attackVisualInstance = Instantiate(attackVisual, currentTransform, Quaternion.identity);
+        IEnumerator DestroyVisual()
+        {
+            yield return new WaitForSeconds((float)0.1);
+            Destroy(attackVisualInstance);
+        }
+        StartCoroutine(DestroyVisual());
     }
 }

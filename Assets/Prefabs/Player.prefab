@@ -145,13 +145,15 @@ MonoBehaviour:
   _attackButton: 106
   _playerRigidbody: {fileID: 4404443888043599914}
   _upwardForcePower: 6
-  _attackWaitTime: 1.4
+  _attackWaitTime: 0.2
   _attackRadius: 1.3
   _playerData: {fileID: 11400000, guid: f4bbe8e90be67c248b1faceaf108bdd0, type: 2}
   _bounceHeight: 2.5
   _playSFX: {fileID: 2067204062253523013}
   _playerBoxCollider: {fileID: 8898548138835805344}
   _playerDownAttackCollider: {fileID: 7124347047198605922}
+  particle: {fileID: 8514793231442852574, guid: 2a5e6e55461b05448a271cbca1acf373, type: 3}
+  attackVisual: {fileID: 2774837067606363711, guid: 8f1d8097476f8444d80774a5d597a3b3, type: 3}
   objectHit: {fileID: 0}
 --- !u!114 &6400374464147411000
 MonoBehaviour:
