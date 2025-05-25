@@ -94,13 +94,15 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
         
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
         {
             currentSpeed = sprintSpeed;
+            tr.emitting = true;
             OnPlayerSprint?.Invoke();
         }
         else
         {
+            tr.emitting = false;
             currentSpeed = speed;
             OnPlayerNotSprint?.Invoke();
         }

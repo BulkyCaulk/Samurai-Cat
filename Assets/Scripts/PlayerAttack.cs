@@ -131,7 +131,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Vector3 currentTransform = transform.position;
         Quaternion spawnRotation = particle.transform.rotation;
-        currentTransform.y = (float)(currentTransform.y - 1.3);
+        currentTransform.y = (float)(currentTransform.y - 1.4);
         particleInstance = Instantiate(particle, currentTransform, spawnRotation);
     }
 
@@ -139,7 +139,7 @@ public class PlayerAttack : MonoBehaviour
     private void SpawnHitVisuals()
     {
         Vector3 currentTransform = transform.position;
-        currentTransform.y = currentTransform.y - 1;
+        currentTransform.y = (float)(currentTransform.y - 0.95);
         attackVisualInstance = Instantiate(attackVisual, currentTransform, Quaternion.identity);
         IEnumerator DestroyVisual()
         {

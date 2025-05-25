@@ -162,7 +162,23 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8537331647963613891, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_PreviewTimeScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8537331647963613891, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8537331647963613891, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8537331647963613891, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8537331647963613891, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
+      propertyPath: m_Parameters.generateLightingData
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1843248445513887649, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
