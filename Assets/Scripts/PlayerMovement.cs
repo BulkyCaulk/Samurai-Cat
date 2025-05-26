@@ -228,13 +228,20 @@ private IEnumerator DropThroughPlatform()
     public void ResetDoubleJump()
     {
         // Reset extra jump for the player
+        if (playerAttack.objectHit != null)
+        {
+            canDoubleJump = true;
+        }
+    }
+    public void BounceMushroomResetJump()
+    {
         canDoubleJump = true;
     }
 
     // For when the player gains a new ability, call this method to refresh the variable
     public void RefreshAbilities()
     {
-        hasDash       = GameManager.Instance.UnlockedDash;
+        hasDash = GameManager.Instance.UnlockedDash;
         hasDoubleJump = GameManager.Instance.UnlockedDoubleJump;
     }
     

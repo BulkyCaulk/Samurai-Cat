@@ -94,7 +94,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growTime: 4.6
   fullTime: 3
-  pauseTime: 2
   shrinkTime: 4.6
   offTime: 1
   dps: 10
@@ -1449,7 +1448,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
-        key0: {r: 0.4716981, g: 0.7218851, b: 1, a: 1}
+        key0: {r: 0.36320752, g: 0.67788833, b: 1, a: 1}
         key1: {r: 0.83281416, g: 0.9292453, b: 0.9277523, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}

@@ -37,7 +37,7 @@ public class Floater : MonoBehaviour
 // Changes the player mass because the platforms would fall
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "FloorBoxCollider")
+        if(collision.name == "Player")
         {
             Rigidbody2D playerRB = collision.GetComponentInParent<Rigidbody2D>();
             Debug.Log("enter");

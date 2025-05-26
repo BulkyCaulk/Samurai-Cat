@@ -12,6 +12,7 @@ public class Bouncy_Mushroom : MonoBehaviour
     [SerializeField] private float horizontalBounceDuration = 0.2f;
     [Tooltip("Set to 'horizontal' for horizontal bounce")]
     [SerializeField] private string direction = "vertical";
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
@@ -38,7 +39,7 @@ public class Bouncy_Mushroom : MonoBehaviour
         PlayerMovement pm = other.GetComponent<PlayerMovement>();
         if (pm != null)
         {
-            pm.ResetDoubleJump();
+            pm.BounceMushroomResetJump();
         }
     }
 }
