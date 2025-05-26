@@ -4,15 +4,11 @@ using System.Collections;
 [RequireComponent(typeof(BoxCollider2D))]
 public class WaterfallController : MonoBehaviour
 {
-    /*────────── Inspector ─────────*/
     [Header("Cycle")]
     [SerializeField] float growTime   = 4.6f;
     [SerializeField] float fullTime   = 3f;
     [SerializeField] float shrinkTime = 4.6f;
     [SerializeField] float offTime    = 1f;
-
-    [Header("Damage")]
-    [SerializeField] float dps = 10f;
     private ParticleSystem ps;
     private ParticleSystem.EmissionModule em;
     private BoxCollider2D col;

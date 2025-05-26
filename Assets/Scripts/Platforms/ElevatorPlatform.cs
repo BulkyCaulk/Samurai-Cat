@@ -1,56 +1,84 @@
+using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class ElevatorPlatform : MonoBehaviour
 {
-    public float range = 5f;
-    public float speed = 2f;
+    [Header("Initial Settings")]
+    [Tooltip("If true, elevator starts moving toward the end position when scene loads")]
+    [SerializeField] private bool moveUpOnStart = false;
 
-    private Vector3 _startPos;
-    private Rigidbody2D _rb;
-    private bool _isPlayerOn = false;
+    [Header("Movement Settings")]
+    [Tooltip("Local-space offset from the start position to the end position")]
+    [SerializeField] private Vector2 movementOffset = new Vector2(0f, 5f);
+    [SerializeField] private float movementSpeed = 2f;
+    [Tooltip("How close is 'close enough' to switch direction")]
+    [SerializeField] private float arrivalThreshold = 0.01f;
 
-    void Awake()
+    private Rigidbody2D platformRigidbody;
+    private Vector2 startPosition;
+    private Vector2 endPosition;
+
+    private bool isAtStart = true;
+    private bool isMoving = false;
+    public bool IsMoving => isMoving;
+    private Vector2 lastStepDelta = Vector2.zero;
+
+    private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.isKinematic = true;
-        _startPos = transform.position;
+        platformRigidbody = GetComponent<Rigidbody2D>();
+        platformRigidbody.isKinematic = true;
+
+        startPosition = platformRigidbody.position;
+        endPosition = startPosition + movementOffset;
     }
 
-    void FixedUpdate()
+    private void Start()
     {
-        float targetY = _isPlayerOn 
-            ? _startPos.y + range 
-            : _startPos.y;
-
-        Vector3 targetPos = new Vector3(
-            _startPos.x, 
-            targetY, 
-            _startPos.z
-        );
-        Vector3 newPos = Vector3.MoveTowards(
-            transform.position, 
-            targetPos, 
-            speed * Time.fixedDeltaTime
-        );
-
-        _rb.MovePosition(newPos);
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("FloorBoxCollider"))
+        if (moveUpOnStart)
         {
-            _isPlayerOn = true;
+            ToggleElevator();
         }
     }
+    /// Call to start the elevator moving toward its other end.
 
-    void OnCollisionExit2D(Collision2D collision)
+    public void ToggleElevator()
     {
-        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("FloorBoxCollider"))
-        {
-            _isPlayerOn = false;
+        if (isMoving) return;
+        StartCoroutine(MovePlatformRoutine());
+    }
 
+    private IEnumerator MovePlatformRoutine()
+    {
+        isMoving = true;
+        Vector2 target = isAtStart ? endPosition : startPosition;
+
+        while (Vector2.Distance(platformRigidbody.position, target) > arrivalThreshold)
+        {
+            Vector2 currentPos = platformRigidbody.position;
+            Vector2 nextPos = Vector2.MoveTowards(currentPos, target, movementSpeed * Time.fixedDeltaTime);
+
+            lastStepDelta = nextPos - currentPos;
+            platformRigidbody.MovePosition(nextPos);
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        // Snap exactly and reset delta
+        platformRigidbody.MovePosition(target);
+        lastStepDelta = Vector2.zero;
+
+        isAtStart = !isAtStart;
+        isMoving = false;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (!isMoving) return;
+        if (collision.transform.CompareTag("Player") && collision.rigidbody != null)
+        {
+            // Carry the player smoothly by applying same delta
+            collision.rigidbody.MovePosition(collision.rigidbody.position + lastStepDelta);
         }
     }
 }
