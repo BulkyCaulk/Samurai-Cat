@@ -9,7 +9,7 @@ public class Bouncy_Mushroom : MonoBehaviour
     [SerializeField] private float bounceVelocity = 12f;
     [SerializeField] private float horizontalBounceVelocity = 5f;
     [SerializeField] private Animator animator;
-    [SerializeField] private float horizontalBounceDuration = 0.2f;
+    [SerializeField] private float horizontalSlowBounceDuration = 1f;
     [Tooltip("Set to 'horizontal' for horizontal bounce")]
     [SerializeField] private string direction = "vertical";
 
@@ -30,8 +30,15 @@ public class Bouncy_Mushroom : MonoBehaviour
                 var kb = other.GetComponent<Knockback>();
                 float sign = other.transform.position.x < transform.position.x ? -1f : 1f;
                 Vector2 hitDir = new Vector2(sign, bounceVelocity);
-                kb.hitDirectionForce = horizontalBounceVelocity;
-                kb.CallKnockBackAction(hitDir, Vector2.zero, 0f);
+                IEnumerator SlowTime()
+                {
+                    Time.timeScale = 0.5f;
+                    kb.hitDirectionForce = horizontalBounceVelocity;
+                    kb.CallKnockBackAction(hitDir, Vector2.zero, 0f);
+                    yield return new WaitForSecondsRealtime(horizontalSlowBounceDuration);
+                    Time.timeScale = 1;
+                }
+                StartCoroutine(SlowTime());
             }
         }
 
