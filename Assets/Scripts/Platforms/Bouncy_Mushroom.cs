@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -8,16 +7,33 @@ public class Bouncy_Mushroom : MonoBehaviour
 {
     [Tooltip("Velocity from bounce")]
     [SerializeField] private float bounceVelocity = 12f;
+    [SerializeField] private float horizontalBounceVelocity = 5f;
+    [SerializeField] private Animator animator;
+    [SerializeField] private float horizontalBounceDuration = 0.2f;
+    [Tooltip("Set to 'horizontal' for horizontal bounce")]
+    [SerializeField] private string direction = "vertical";
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player")) return;
 
         Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = new Vector2(rb.velocity.x, bounceVelocity);
+            animator.SetTrigger("trigger");
+            if (direction == "vertical")
+            {
+                rb.velocity = new Vector2(rb.velocity.x, bounceVelocity);
+            }
+            else if (direction == "horizontal")
+            {
+                var kb = other.GetComponent<Knockback>();
+                float sign = other.transform.position.x < transform.position.x ? -1f : 1f;
+                Vector2 hitDir = new Vector2(sign, bounceVelocity);
+                kb.hitDirectionForce = horizontalBounceVelocity;
+                kb.CallKnockBackAction(hitDir, Vector2.zero, 0f);
+            }
+        }
 
-        } 
 
         PlayerMovement pm = other.GetComponent<PlayerMovement>();
         if (pm != null)
