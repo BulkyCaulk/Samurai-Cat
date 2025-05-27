@@ -10,8 +10,10 @@ public class Bouncy_Mushroom : MonoBehaviour
     [SerializeField] private float horizontalBounceVelocity = 5f;
     [SerializeField] private Animator animator;
     [SerializeField] private float horizontalSlowBounceDuration = 1f;
+    //[SerializeField] private float 
     [Tooltip("Set to 'horizontal' for horizontal bounce")]
     [SerializeField] private string direction = "vertical";
+    [SerializeField] private AudioClip bounceSound;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -24,6 +26,7 @@ public class Bouncy_Mushroom : MonoBehaviour
             if (direction == "vertical")
             {
                 rb.velocity = new Vector2(rb.velocity.x, bounceVelocity);
+                SoundFXManager.instance.PlaySoundEffectClip(bounceSound, transform, 1f);
             }
             else if (direction == "horizontal")
             {
@@ -33,6 +36,7 @@ public class Bouncy_Mushroom : MonoBehaviour
                 IEnumerator SlowTime()
                 {
                     Time.timeScale = 0.5f;
+                    SoundFXManager.instance.PlaySoundEffectClip(bounceSound, transform, 1f);
                     kb.hitDirectionForce = horizontalBounceVelocity;
                     kb.CallKnockBackAction(hitDir, Vector2.zero, 0f);
                     yield return new WaitForSecondsRealtime(horizontalSlowBounceDuration);

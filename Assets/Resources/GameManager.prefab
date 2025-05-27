@@ -48,9 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 0}
   pauseMenuUI: {fileID: 4851764466124307049}
-  Tutorial: {fileID: 8300000, guid: b5d8d307e5c8369449bcfdad892349a5, type: 3}
-  Dungeon: {fileID: 8300000, guid: 731dd73aedc314448be5f958e46ef1be, type: 3}
-  Mushroom: {fileID: 8300000, guid: 6df4e0da63894a34db566bb7c3f187f0, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: b5d8d307e5c8369449bcfdad892349a5, type: 3}
+  - {fileID: 8300000, guid: 731dd73aedc314448be5f958e46ef1be, type: 3}
+  - {fileID: 8300000, guid: 6df4e0da63894a34db566bb7c3f187f0, type: 3}
 --- !u!82 &-437563831768800921
 AudioSource:
   m_ObjectHideFlags: 0

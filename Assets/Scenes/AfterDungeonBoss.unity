@@ -108927,6 +108927,22 @@ PrefabInstance:
       propertyPath: pauseMenuUI
       value: 
       objectReference: {fileID: 939688035}
+    - target: {fileID: 6738805055287597066, guid: 4b9f48899f124eb4b863d8f53a7ff1d3, type: 3}
+      propertyPath: AudiosClips.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6738805055287597066, guid: 4b9f48899f124eb4b863d8f53a7ff1d3, type: 3}
+      propertyPath: AudiosClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b5d8d307e5c8369449bcfdad892349a5, type: 3}
+    - target: {fileID: 6738805055287597066, guid: 4b9f48899f124eb4b863d8f53a7ff1d3, type: 3}
+      propertyPath: AudiosClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 731dd73aedc314448be5f958e46ef1be, type: 3}
+    - target: {fileID: 6738805055287597066, guid: 4b9f48899f124eb4b863d8f53a7ff1d3, type: 3}
+      propertyPath: AudiosClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6df4e0da63894a34db566bb7c3f187f0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -176,5 +176,6 @@ MonoBehaviour:
   bounceVelocity: 18.5
   horizontalBounceVelocity: 5
   animator: {fileID: 772714457484191659}
-  horizontalBounceDuration: 0.2
+  horizontalSlowBounceDuration: 1
   direction: vertical
+  bounceSound: {fileID: 8300000, guid: d01627def8d1d8f4db90fe057101a6fd, type: 3}

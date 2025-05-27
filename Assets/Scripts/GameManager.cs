@@ -14,9 +14,6 @@ public class GameManager : MonoBehaviour
     [Header("Pause Menu UI")]
     [Tooltip("PauseMenu Canvas")]
     [SerializeField] private GameObject pauseMenuUI;
-    [SerializeField] private AudioClip Tutorial;
-    [SerializeField] private AudioClip Dungeon;
-    [SerializeField] private AudioClip Mushroom;
     private AudioSource audioSource;
     private bool isPaused = false;
     private string _respawnScene;
@@ -25,12 +22,7 @@ public class GameManager : MonoBehaviour
     private HashSet<string> _litCheckpoints = new HashSet<string>();
     public bool UnlockedDash { get; private set; } = false;
     public bool UnlockedDoubleJump { get; private set; } = false;
-    private Dictionary<string, bool> AudiosPlaying = new Dictionary<string, bool>
-    {
-        { "Tutorial", false},
-        {"Dungeon", false },
-        {"Mushroom", false }
-    };
+    [SerializeField] private AudioClip[] audioClips; 
     public void UnlockDash()
         => UnlockedDash = true;
     public void UnlockDoubleJump()
@@ -107,37 +99,37 @@ public class GameManager : MonoBehaviour
             StartCoroutine(DoRespawn());
         if (scene.name == "Tutorial1")
         {
-            if (audioSource.isPlaying && audioSource.clip == Tutorial)
+            if (audioSource.isPlaying && audioSource.clip == audioClips[0])
             {
                 //do nothing
             }
             else
             {
-                audioSource.clip = Tutorial;
+                audioSource.clip = audioClips[0];
                 audioSource.Play();
             }
         }
         else if (scene.name == "VerticleSlice" || scene.name == "Mushroom2")
         {
-            if (audioSource.isPlaying && audioSource.clip == Mushroom)
+            if (audioSource.isPlaying && audioSource.clip == audioClips[2])
             {
                 // do nothing
             }
             else
             {
-                audioSource.clip = Mushroom;
+                audioSource.clip = audioClips[2];
                 audioSource.Play();
             }
         }
         else
         {
-            if (audioSource.isPlaying && audioSource.clip == Dungeon)
+            if (audioSource.isPlaying && audioSource.clip == audioClips[1])
             {
                 //do nothing
             }
             else
             {
-                audioSource.clip = Dungeon;
+                audioSource.clip = audioClips[1];
                 audioSource.Play();
             }
         }
