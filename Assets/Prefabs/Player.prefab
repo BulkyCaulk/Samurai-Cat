@@ -622,6 +622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerHealth: 9
   _invincibilityTime: 0.5
+  deathAudioClip: {fileID: 8300000, guid: b1fc60d5af581df4f8ea1e7309a4d284, type: 3}
 --- !u!114 &1774805653877389229
 MonoBehaviour:
   m_ObjectHideFlags: 0

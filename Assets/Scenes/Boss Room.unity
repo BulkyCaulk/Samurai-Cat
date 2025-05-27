@@ -16107,7 +16107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2079707930456703491, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
       propertyPath: _playerHealth
-      value: 9
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2079707930456703491, guid: 13f8a532666dd934cab172f06fcfd8ba, type: 3}
       propertyPath: _knockbackForce

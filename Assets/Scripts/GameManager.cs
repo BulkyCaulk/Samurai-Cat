@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Rendering.PostProcessing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,15 +14,23 @@ public class GameManager : MonoBehaviour
     [Header("Pause Menu UI")]
     [Tooltip("PauseMenu Canvas")]
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private AudioClip Tutorial;
+    [SerializeField] private AudioClip Dungeon;
+    [SerializeField] private AudioClip Mushroom;
+    private AudioSource audioSource;
     private bool isPaused = false;
-
     private string _respawnScene;
     private Vector3 _respawnPos;
-
     // keep only one lit checkpoint at a time
     private HashSet<string> _litCheckpoints = new HashSet<string>();
     public bool UnlockedDash { get; private set; } = false;
     public bool UnlockedDoubleJump { get; private set; } = false;
+    private Dictionary<string, bool> AudiosPlaying = new Dictionary<string, bool>
+    {
+        { "Tutorial", false},
+        {"Dungeon", false },
+        {"Mushroom", false }
+    };
     public void UnlockDash()
         => UnlockedDash = true;
     public void UnlockDoubleJump()
@@ -31,6 +40,7 @@ public class GameManager : MonoBehaviour
     public void OnBackToMenu() => ReturnToMenu();
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         if (Instance == null)
         {
             Instance = this;
@@ -92,8 +102,46 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log($"Scene Name: {scene.name}");
         if (scene.name == _respawnScene)
             StartCoroutine(DoRespawn());
+        if (scene.name == "Tutorial1")
+        {
+            if (audioSource.isPlaying && audioSource.clip == Tutorial)
+            {
+                //do nothing
+            }
+            else
+            {
+                audioSource.clip = Tutorial;
+                audioSource.Play();
+            }
+        }
+        else if (scene.name == "VerticleSlice" || scene.name == "Mushroom2")
+        {
+            if (audioSource.isPlaying && audioSource.clip == Mushroom)
+            {
+                // do nothing
+            }
+            else
+            {
+                audioSource.clip = Mushroom;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying && audioSource.clip == Dungeon)
+            {
+                //do nothing
+            }
+            else
+            {
+                audioSource.clip = Dungeon;
+                audioSource.Play();
+            }
+        }
+        
     }
 
     // Clear out any previously-lit checkpoint, then mark this one.

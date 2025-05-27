@@ -6,13 +6,17 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int _playerHealth;
     [SerializeField] private float _invincibilityTime;
+    [SerializeField] private AudioClip deathAudioClip;
     private Rigidbody2D _playerRigidBody;
     private PlayerMovement _playerMovement;
+    private Collider2D _playerCollider;
     private Knockback _knockback;
     private bool _isInvincible;
     private SpriteRenderer _playerSprite;
     private Material _defaultMat;
     private Material _injuredMat;
+    private PlayerDeath playerDeath;
+    private AudioSource _audioSource;
 
     void Start()
     {
@@ -21,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
         _playerSprite = GetComponent<SpriteRenderer>();
         _knockback = GetComponent<Knockback>();
+        _audioSource = GetComponent<AudioSource>();
         _defaultMat = _playerSprite.material;
         _injuredMat = Resources.Load("mWhite", typeof(Material)) as Material;
     }
@@ -38,7 +43,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void PlayerTakeDamage(Vector2 _knockbackDirection)
     {
-        if(!_isInvincible)
+        _audioSource.clip = deathAudioClip;
+        _audioSource.Play();
+        if (!_isInvincible)
         {
             _playerHealth--;
             _isInvincible = true;
@@ -47,7 +54,14 @@ public class PlayerHealth : MonoBehaviour
         }
         if(_playerHealth <= 0)
         {
-            GameManager.Instance.ReloadToCheckpoint();
+            IEnumerator Respawn()
+            {
+                _audioSource.clip = deathAudioClip;
+                _audioSource.Play();
+                yield return new WaitForSeconds(0.7f);
+                GameManager.Instance.ReloadToCheckpoint();
+            }
+            StartCoroutine(Respawn());
         }
     }
 

@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49e555e2c161834f85248350243a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 0.04
+  deathAudioClip: {fileID: 0}
+  waitTime: 0.7
 --- !u!50 &6195544592528228353
 Rigidbody2D:
   serializedVersion: 4
