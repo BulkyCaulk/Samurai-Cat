@@ -35,12 +35,14 @@ public class PlayerAttack : MonoBehaviour
     public Collider2D objectHit = null;
     private float _animationDuration;
     private bool _canAttack = true;
+    private float _pogoDuration;
 
 
     void Start()
     {
         _knockback = GetComponent<Knockback>();
         _attackableBounceLayer = LayerMask.GetMask("BounceAttackable");
+        _pogoDuration = 1.3336f;
     }
     // Update is called once per frame
     void Update()
@@ -55,6 +57,7 @@ public class PlayerAttack : MonoBehaviour
             _attackCoroutine = DownwardAttack();
             StartCoroutine(_attackCoroutine);
         }
+        
     }
 
 
@@ -77,12 +80,22 @@ public class PlayerAttack : MonoBehaviour
         _animationDuration = onDownwardAttackAnimationDuration.Invoke("DownwardAttack");
         SpawnHitVisuals();
 
+        _basicAttackArea.SetActive(true);
+        float timer = 0;
+        while (timer < _pogoDuration)
+        {
+            objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position, _attackRadius, _attackableBounceLayer);
+            timer += Time.deltaTime;
+            Debug.Log(timer);
+        }
 
-        objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position, _attackRadius, _attackableBounceLayer);
         Debug.Log(objectHit);
 
         if (objectHit != null)
+        {
             CheckDownHit(objectHit);
+        }
+        _basicAttackArea.SetActive(false);
         onDownwardAttackHit?.Invoke();
         yield return new WaitForSeconds(_animationDuration);
         _canAttack = true;
