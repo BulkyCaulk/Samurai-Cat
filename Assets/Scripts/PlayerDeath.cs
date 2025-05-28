@@ -5,11 +5,14 @@ public class PlayerDeath : MonoBehaviour
 {
     [Tooltip("Delay before respawning at checkpoint")]
     [SerializeField] private AudioClip deathAudioClip;
+    private PlayerDeathManager playerDeathManager;
     private AudioSource deathAudioSource;
     public float waitTime = 0.7f;
     void Start()
     {
         deathAudioSource = GetComponent<AudioSource>();
+        GameObject player = GameObject.FindWithTag("Player");
+        playerDeathManager = player.GetComponent<PlayerDeathManager>();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -30,6 +33,7 @@ public class PlayerDeath : MonoBehaviour
         deathAudioSource.clip = deathAudioClip;
         deathAudioSource.Play();
         playerCollider.gameObject.SetActive(false);
+        playerDeathManager.PlayDeathEffect();
         yield return new WaitForSecondsRealtime(waitTime);
         GameManager.Instance.ReloadToCheckpoint();
     }

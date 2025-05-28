@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 2079707930456703491}
   - component: {fileID: 1774805653877389229}
   - component: {fileID: 7124347047198605922}
+  - component: {fileID: 56567554270746261}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -623,6 +624,7 @@ MonoBehaviour:
   _playerHealth: 9
   _invincibilityTime: 0.5
   deathAudioClip: {fileID: 8300000, guid: b1fc60d5af581df4f8ea1e7309a4d284, type: 3}
+  deathEffect: {fileID: 2251277375611619464, guid: 768d6690fb606ef48987a900a623651e, type: 3}
 --- !u!114 &1774805653877389229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +734,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4332027, y: 0.8141587}
   m_EdgeRadius: 0
+--- !u!114 &56567554270746261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843248445513887649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7847fdc43f90a1478f8c5be8210c2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticle: {fileID: 2251277375611619464, guid: 768d6690fb606ef48987a900a623651e, type: 3}
 --- !u!1 &2121439681257742885
 GameObject:
   m_ObjectHideFlags: 0

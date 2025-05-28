@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int _playerHealth;
     [SerializeField] private float _invincibilityTime;
     [SerializeField] private AudioClip deathAudioClip;
+    [SerializeField] private ParticleSystem deathEffect;
     private Rigidbody2D _playerRigidBody;
     private PlayerMovement _playerMovement;
     private Collider2D _playerCollider;
