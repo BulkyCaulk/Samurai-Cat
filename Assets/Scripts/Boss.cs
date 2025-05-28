@@ -17,6 +17,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private BoxCollider2D _bossCollider;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject DashUnlockedPanel;
     private float _timer;
     private IEnumerator _platformCoroutine;
     private IEnumerator _shootAttackCoroutine;
@@ -183,13 +184,14 @@ public class Boss : MonoBehaviour
         PushPlayerAway();
         // disable hitbox when boss is damaged
         _bossCollider.enabled = false;
-        if(_bossHealth <= 0)
+        if (_bossHealth <= 0)
         {
             Destroy(gameObject);
             GameManager.Instance.UnlockDash();
             playerMovement.RefreshAbilities();
             //blockedWall1.SetActive(false);
             blockedWall2.SetActive(false);
+            DashUnlockedPanel.SetActive(true);
         }   
     }
 
