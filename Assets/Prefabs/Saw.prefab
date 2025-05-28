@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49e555e2c161834f85248350243a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathAudioClip: {fileID: 0}
+  deathAudioClip: {fileID: 8300000, guid: b1fc60d5af581df4f8ea1e7309a4d284, type: 3}
   waitTime: 0.7
 --- !u!50 &6195544592528228353
 Rigidbody2D:

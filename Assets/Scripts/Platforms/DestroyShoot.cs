@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class DestroyShoot : MonoBehaviour
@@ -30,10 +31,14 @@ public class DestroyShoot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("ProjSpawner") != true && other.CompareTag("Player") != true && other.CompareTag("CameraBorder") != true
-        && other.CompareTag("FloorBoxCollider") != true)
+        if (other.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
+        if (other.CompareTag("ProjSpawner") != true && other.CompareTag("Player") != true && other.CompareTag("CameraBorder") != true
+            && other.CompareTag("FloorBoxCollider") != true)
+            {
+                Destroy(gameObject);
+            }
     }
 }

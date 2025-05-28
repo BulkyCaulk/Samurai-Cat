@@ -26,11 +26,11 @@ public class PlayerDeath : MonoBehaviour
     private IEnumerator HandleDeath(Collider2D playerCollider)
     {
         // Hide the player
-        yield return new WaitForSeconds(0.04f);
+        yield return new WaitForSecondsRealtime(0.04f);
         deathAudioSource.clip = deathAudioClip;
         deathAudioSource.Play();
         playerCollider.gameObject.SetActive(false);
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
         GameManager.Instance.ReloadToCheckpoint();
     }
 }
