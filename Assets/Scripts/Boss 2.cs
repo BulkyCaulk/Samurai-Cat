@@ -14,28 +14,47 @@ public class Boss2 : MonoBehaviour
     private float _currentHealth;
     private float _reducedHealth;
     private float _bossLerpDuration;
+    private float _bossSlerpDuration;
     private int _spawnIndex;
     private float _timer;
     private bool _isSlerpin;
     private bool _isCorountineRunning;
     private GameObject _platformDisabled;
     private IEnumerator _currentAttack;
-
+    private ProjectileShooter1 spitter;
+    private float _centerOffset;
+    Vector3 centerPivot;
+    Vector3 start;
+    Vector3 end;
 
     void Start()
     {
+        // generic values
         _currentHealth = this.GetComponent<Enemy>().Enemy_Health;
-        //_reducedHealth = this.GetComponent<Enemy>().Enemy_Health;
         _bossLerpDuration = 1f;
+        _bossSlerpDuration = 6f;
         _timer = 0;
+        _centerOffset = .3f;
         _isSlerpin = false;
         _isCorountineRunning = false;
+
+        // slerp values
+        centerPivot = (_bossSlerpPositions[1].position + _bossSlerpPositions[0].position) * .5f ;
+        centerPivot -= new Vector3(0, -_centerOffset);
+        start = _bossSlerpPositions[1].position - centerPivot;
+        end = _bossSlerpPositions[0].position - centerPivot;
+
+        // spit cannon reference
+        spitter = _spitCannon.GetComponent<ProjectileShooter1>();
+        spitter.ShotTimer = 2f;
+        spitter.Projectile.ProjectileSpeed = 20f;
     }
 
 
     void Update()
     {
         _timer += Time.deltaTime;
+        _spitCannon.transform.position = this.transform.position;
 
         // current health can't be set on first frame
         if (_currentHealth == 0)
@@ -48,12 +67,12 @@ public class Boss2 : MonoBehaviour
         if (_reducedHealth < _currentHealth)
         {
             _spitCannon.SetActive(false);
-            StopCoroutine(_currentAttack);
+            //StopCoroutine(_currentAttack);
             _currentHealth = _reducedHealth;
             // set currentAttack to lerp down coroutine
             _currentAttack = LerpDownward();
             StartCoroutine(_currentAttack);
-            _bossLerpDuration += .25f;
+            _bossLerpDuration -= .15f;
         }
         else
         {
@@ -66,14 +85,24 @@ public class Boss2 : MonoBehaviour
         {
             StartCoroutine(_currentAttack);
         }
+
+
+        if (this.transform.position.x - spitter.ConstantPlayerPosition.x < 0)
+        {
+            this.transform.localScale = new Vector3(-3, this.transform.localScale.y, this.transform.localScale.z);
+        }
+        else
+        {
+            this.transform.localScale = new Vector3(3, this.transform.localScale.y, this.transform.localScale.z);
+        }
     }
 
 
     IEnumerator LerpUpward()
     {
         _isCorountineRunning = true;
+        spitter.ShotTimer = 2f;
         this.transform.position = GetSpawnPosition();
-        Debug.Log($"Spawning at position: {_spawnIndex}");
         StartCoroutine(SignalPlayer());
 
         yield return new WaitUntil(() => particle.isStopped);
@@ -85,8 +114,8 @@ public class Boss2 : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-        this.transform.position = _bossSpitPositions[_spawnIndex].position;
 
+        this.transform.position = _bossSpitPositions[_spawnIndex].position;
         _spitCannon.SetActive(true);
     }
 
@@ -94,7 +123,6 @@ public class Boss2 : MonoBehaviour
     IEnumerator LerpDownward()
     {
         _isSlerpin = true;
-        _spitCannon.SetActive(false);
         float timeElapsed = 0;
         _timer = 0;
 
@@ -106,6 +134,7 @@ public class Boss2 : MonoBehaviour
         }
     
         this.transform.position = _bossSpawnPositions[_spawnIndex].position;
+
 
         yield return new WaitUntil(() => this.transform.position == _bossSpawnPositions[_spawnIndex].position);
         yield return new WaitForSeconds(.5f);
@@ -121,11 +150,13 @@ public class Boss2 : MonoBehaviour
     {
         _spitCannon.SetActive(true);
         float timeElapsed = 0;
+        spitter.ShotTimer = .2f;
 
         // slerp
-        while (timeElapsed < _bossLerpDuration)
+        while (timeElapsed < _bossSlerpDuration)
         {
-            this.transform.position = Vector3.Slerp(_bossSlerpPositions[1].position, _bossSlerpPositions[0].position, timeElapsed / _bossLerpDuration) * -1;
+            this.transform.position = (Vector3.Slerp(start, end, timeElapsed / _bossSlerpDuration) * -1) + centerPivot;
+            _spitCannon.transform.position = this.transform.position;
             timeElapsed += Time.deltaTime;
             yield return null;
         }

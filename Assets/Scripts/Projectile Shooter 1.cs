@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileShooter1 : MonoBehaviour
@@ -16,11 +15,13 @@ public class ProjectileShooter1 : MonoBehaviour
     private Vector3 _spawnPosition;
     private float _timer;
 
+    public float ShotTimer {get { return _nextShotTimer; } set { _nextShotTimer = value; } }
+    public SpawnProjectile Projectile {get { return _spawnProjectile; } }
+    public Vector3 ConstantPlayerPosition { get { return _playerConstantPosition; } }
 
     void Start()
     {
         _timer = _nextShotTimer;
-        _spawnPosition = this.gameObject.transform.GetChild(0).gameObject.transform.position;
         _player = GameObject.Find("Player");  
         _barrelDirection = this.transform.up;
     }
@@ -29,6 +30,7 @@ public class ProjectileShooter1 : MonoBehaviour
     void Update()
     {
         _timer -= Time.deltaTime;
+        _spawnPosition = this.gameObject.transform.GetChild(0).gameObject.transform.position;
 
         _playerConstantPosition = _player.transform.position - this.transform.position;
 
@@ -57,7 +59,7 @@ public class ProjectileShooter1 : MonoBehaviour
             projectileScript.ProjectileDirection = Vector2.left;
 
             _playerLastPosition = Vector3.Normalize(_lastKnownPlayerPosition - _projectileShooterPosition);
-            _projectile.transform.rotation = Quaternion.FromToRotation(Vector3.left, _playerLastPosition);
+            _projectile.transform.rotation = Quaternion.FromToRotation(-_projectile.transform.right, _playerLastPosition);
        }
         
     }   
