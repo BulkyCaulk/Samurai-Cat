@@ -41,7 +41,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _knockback = GetComponent<Knockback>();
         _attackableBounceLayer = LayerMask.GetMask("BounceAttackable");
-        _pogoDuration = 1.3336f;
+        _pogoDuration = 1f;
     }
     // Update is called once per frame
     void Update()
