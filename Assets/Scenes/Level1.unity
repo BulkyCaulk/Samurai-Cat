@@ -675,6 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49e555e2c161834f85248350243a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathAudioClip: {fileID: 0}
   waitTime: 0.04
 --- !u!1 &280051543
 GameObject:
@@ -1211,6 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49e555e2c161834f85248350243a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathAudioClip: {fileID: 0}
   waitTime: 0.04
 --- !u!1 &527613831
 GameObject:
