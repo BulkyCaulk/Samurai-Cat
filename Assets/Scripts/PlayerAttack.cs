@@ -84,16 +84,14 @@ public class PlayerAttack : MonoBehaviour
         while (timer < _pogoDuration)
         {
             objectHit = Physics2D.OverlapCircle(_downwardAttackArea.transform.position, _attackRadius, _attackableBounceLayer);
+            if (objectHit != null)
+            {
+                CheckDownHit(objectHit);
+                break;
+            }
             timer += Time.deltaTime;
-            Debug.Log(timer);
         }
 
-        Debug.Log(objectHit);
-
-        if (objectHit != null)
-        {
-            CheckDownHit(objectHit);
-        }
         _basicAttackArea.SetActive(false);
         onDownwardAttackHit?.Invoke();
         yield return new WaitForSeconds(_animationDuration);
