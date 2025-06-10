@@ -38,4 +38,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Mushroom_Swamp/Boss Room 2.unity
     guid: 03fc803772f78e34bb923298d4294395
+  - enabled: 1
+    path: Assets/Scenes/Menu_UI/End.unity
+    guid: c84d8d85151685c48ba7e21db6d70ac9
   m_configObjects: {}

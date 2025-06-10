@@ -93,9 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2913ce8589bad743ab218f5804270cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growTime: 4.6
+  growTime: 3
   fullTime: 3
-  shrinkTime: 4.6
+  shrinkTime: 3
   offTime: 1
 --- !u!114 &3134810105703345598
 MonoBehaviour:
@@ -323,7 +323,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -376,7 +376,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 15
       minScalar: 5
       maxCurve:
         serializedVersion: 2

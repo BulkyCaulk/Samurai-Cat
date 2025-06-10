@@ -36025,7 +36025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b336c6b859045c4297db7337e14c86d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 5
+  _maxHealth: 3
   _enemyRigidbody: {fileID: 656934815}
   _enemyAnimator: {fileID: 656934816}
 --- !u!50 &656934815
